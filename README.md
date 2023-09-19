@@ -1,4 +1,4 @@
 # info263_group_project
 
 
-TBA
+ - [ ] This project is about INFO 263 Group project assignment 
