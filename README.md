@@ -1,4 +1,3 @@
 # info263_group_project
 
-
-TBA
+This is the info263 group project README. 
