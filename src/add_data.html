@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Star Wars</title>
+</head>
+<body>
+<h1>Star Wars</h1>
+<br>
+<br>
+<h2>Add data</h2>
+<p>Add additional data to provide accurate information!!</p>
+<script>
+    //This is for script to interact with options above
+
+    function typeSwitch(doc){
+        let xtr = new XMLHttpRequest();
+        var type = doc.value;
+        console.log(type)
+        switch (type) {
+            case 'film':
+                xtr.open("GET", "film.php",true);
+                xtr.send();
+                break;
+            case 'planet':
+                xtr.open("GET", "people.html",true);
+                xtr.send();
+                break;
+            case 'people':
+                break;
+            case 'starship':
+                break;
+        }
+
+        xtr.onreadystatechange = function () {
+            if(this.readyState == 4 && this.response == 200) {
+                document.getElementById("demo").innerHTML = this.responseText;
+            }
+        }
+    }
+
+</script>
+    <label for="datatype">Data Type:</label>
+    <select name="movie data" id="datatype" onchange="typeSwitch(this)" required>
+        <option value = NULL selected hidden="hidden">Select Type</option>
+        <option value='film'>Film</option>
+        <option value='planet'>Planet</option>
+        <option value='people'>People</option>
+        <option value='starship'>Star Ship</option>
+    </select>
+
+
+<div id="demo">
+    ...
+</div>
+
+</body>
+</html>
