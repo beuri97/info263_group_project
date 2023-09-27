@@ -40,19 +40,38 @@
     }
 
 </script>
-    <label for="datatype">Data Type:</label>
-    <select name="movie data" id="datatype" onchange="typeSwitch(this)" required>
-        <option value = NULL selected hidden="hidden">Select Type</option>
-        <option value='film'>Film</option>
-        <option value='planet'>Planet</option>
-        <option value='people'>People</option>
-        <option value='starship'>Star Ship</option>
-    </select>
+<!--    <label for="datatype">Data Type:</label>-->
+<!--    <select name="movie data" id="datatype" onchange="typeSwitch(this)" required>-->
+<!--        <option value = NULL selected hidden="hidden">Select Type</option>-->
+<!--        <option value='film'>Film</option>-->
+<!--        <option value='planet'>Planet</option>-->
+<!--        <option value='people'>People</option>-->
+<!--        <option value='starship'>Star Ship</option>-->
+<!--    </select>-->
+<h2>Add Film</h2>
+<div id = "Add_data_film">
+   <table style="width: 90%" border="1">
+       <tr>
+           <td style="width: 10%"><label for="input_title">Title</label></td>
+           <td><input id = "input_title" type="text" name = "title" style = "width: 99.5%"></td>
+       </tr>
+       <tr>
+           <td><label for="input-episode">Episode</label></td>
+           <td><input type="text" id="input-episode" name="episode" style = "width: 99.5%"></td>
 
+       </tr>
+       <tr>
+           <td><label for="input-crawl">Opening Crawl</label></td>
+           <td><textarea id="input-crawl" style="resize: none" rows="10" cols="150">Enter text here.</textarea> </td>
+       </tr>
+       <tr></tr>
+       <tr></tr>
+       <tr></tr>
 
-<div id="demo">
-    ...
+   </table>
 </div>
+
+
 
 </body>
 </html>
