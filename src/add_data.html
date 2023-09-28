@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Star Wars</title>
+</head>
+<style>
+    td {
+        text-align: center;
+        font-family: Arial;
+        font-weight: bold;
+        border: 10px black;
+    }
+    input[type="text"] {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    input[type="date"] {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    table{
+        width: 50%;
+        border: 10px black;
+
+    }
+    th {
+        border: 10px black;
+    }
+    div[id="Add_data_film"] {
+        margin-left: 3%;
+    }
+</style>
+
+<body>
+<h1>Star Wars</h1>
+<br>
+<br>
+<h2>Add Film</h2>
+<p>Add additional data to provide accurate information!!</p>
+<div id = "Add_data_film">
+   <table>
+       <tr>
+           <td><label for="input_title">Title</label></td>
+           <td><input id = "input_title" type="text" name = "title" required></td>
+           <td><label for="input-episode">Episode</label></td>
+           <td colspan="3"><input type="text" id="input-episode" name="episode" required></td>
+           <td><label for="input-director">Director</label></td>
+           <td><input type="text" id="input-director" name="director" required></td>
+           <td><label for="input-date">Date</label></td>
+           <td><input type="date" id="input-date" name="release_date" required></td>
+       </tr>
+       <tr>
+           <td>Opening Crawl</td>
+           <td colspan="9"><textarea id="input-crawl" style="resize: none" rows="10" required>Enter text here.</textarea> </td>
+       </tr>
+       <tr>
+           <td><label for="input-url">image URL</label></td>
+           <td colspan="9"><input type="text" id="input-url" name="url"></td>
+       </tr>
+   </table>
+    <br>
+    <input type="submit" id="submit" name="add" value="Add" style="margin-left: 1%">
+</div>
+</body>
+</html>
