@@ -3,26 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars - Films</title>
-</head>
-<body>
 
+    <!-- Page Style -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'/>
+    <link rel="stylesheet" href="css/filmsStyle.css">
+</head>
+
+<body>
+<!-- Nav Bar Title -->
+<div style="text-align: center;">
+    <h1>Star Wars Project</h1>
+</div>
+<div style="text-align: center;">
+    <img src="img/logo.png" width="200"/>
+</div>
 
 <!-- Navigation -->
-<nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="films.php">Films</a></li>
-        <li><a href="planets.php">Planets</a></li>
-        <li><a href="people.php">People</a></li>
-    </ul>
-</nav>
+<div style="text-align: left;">
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="films.php">Films</a></li>
+            <li><a href="planets.php">Planets</a></li>
+            <li><a href="people.php">People</a></li>
+            <li><a href="form.php">Form</a></li>
+        </ul>
+    </nav>
+</div>
 
 <!-- Search -->
-<form>
-    <label for="search-bar">Search:</label>
-    <input type="text" id="search-bar" />
-    <input type="submit">
-</form>
+<div style="text-align: right;">
+    <form>
+        <label for="search-bar">Search:</label>
+        <input type="text" id="search-bar" />
+        <input type="submit">
+    </form>
+</div>
 
 
 <h1>Films</h1>
@@ -39,11 +57,18 @@ try {
 if (!isset($_GET["id"])) {
 
     try {
+        echo '<div class="film-container">';
         $res = $open_review_s_db->query("SELECT filmID, film_title, film_release_date, image_url FROM film");
         while($row = $res->fetch(PDO::FETCH_ASSOC)) {
+            echo "<a href=films.php?id=" . $row['filmID'] ."> . '<div class=\"film-item\">'";
+            echo "<img height='300' src='" . $row['image_url'] . "' /><br />";
+            echo '<div class="film-title">';
             echo "<h2>" . $row['film_title'] . "</h2>";
-            echo "<a href='films.php?id=" . $row['filmID'] ."'><img height='300' src='" . $row['image_url'] . "' /></a><br />";
+            echo '</div>';
+            echo '</a>';
+            echo "</div>";
         }
+        echo "</div>";
     } catch (PDOException $e) {
         die($e->getMessage());
     }
@@ -53,7 +78,7 @@ if (!isset($_GET["id"])) {
         $res = $open_review_s_db->query("SELECT filmID, film_title, film_release_date, film_opening_crawl, image_url FROM film WHERE filmID = " . $id);
         while($row = $res->fetch(PDO::FETCH_ASSOC)) {
             echo "<h2>" . $row['film_title'] . "</h2>";
-            echo "<a href='films.php?id=" . $row['filmID'] ."'><img height='300' src='" . $row['image_url'] . "' /></a><br />";
+            echo "<img height='300' src='" . $row['image_url'] . "' /><br />";
             echo "<b>Release Date: </b>" . "<p>" . $row['film_release_date'] . "</p>";
             echo "<h2>Film Description:</h2>";
             echo "<p>" . $row['film_opening_crawl'] . "</p>";
@@ -81,48 +106,6 @@ if (!isset($_GET["id"])) {
 
 ?>
 
-
-<ul>
-    <li><a href="films.php">Back</a></li>
-</ul>
-
-<!-- Add CSS for formatting -->
-<style>
-
-    body {
-        background-color: #080807;
-    }
-
-    h1 {
-        font-style: italic;
-        color: white;
-    }
-
-    h2 {
-        font-style: italic;
-        color: yellow;
-    }
-
-    p, a, b, h4, text {
-        color: white;
-    }
-
-    .producer-container {
-        display: flex; /* Display items in a row */
-        justify-content: space-between; /* Add space between items */
-        align-items: center; /* Vertically align items */
-        flex-wrap: wrap; /* Wrap items to the next row if necessary */
-        justify-content: flex-start;
-    }
-
-    .producer-item {
-        text-align: center; /* Center-align items */
-        margin: 10px; /* Add spacing around each item */
-        border: 1px solid #ccc; /* Add a border to each item */
-        padding: 10px; /* Add padding to each item */
-        width: 200px; /* Limit the width of each item */
-    }
-</style>
 
 </body>
 </html>
