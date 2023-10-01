@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'/>
     <link rel="stylesheet" href="css/filmsStyle.css">
+
+    <!-- Scripts -->
+    <script type = "text/javascript" src="js/filmsScript.js"></script>
 </head>
 
 <body>
@@ -17,7 +20,7 @@
     <h1>Star Wars Project</h1>
 </div>
 <div style="text-align: center;">
-    <img src="img/logo.png" width="200"/>
+    <img src="img/logo.png" width="200" alt='film_image'/>
 </div>
 
 <!-- Navigation -->
@@ -61,7 +64,7 @@ if (!isset($_GET["id"])) {
         $res = $open_review_s_db->query("SELECT filmID, film_title, film_release_date, image_url FROM film");
         while($row = $res->fetch(PDO::FETCH_ASSOC)) {
             echo "<a href=films.php?id=" . $row['filmID'] ."> . '<div class=\"film-item\">'";
-            echo "<img height='300' src='" . $row['image_url'] . "' /><br />";
+            echo "<img height='300' src='" . $row['image_url'] . "' alt='film_image' /><br />";
             echo '<div class="film-title">';
             echo "<h2>" . $row['film_title'] . "</h2>";
             echo '</div>';
@@ -78,33 +81,36 @@ if (!isset($_GET["id"])) {
         $res = $open_review_s_db->query("SELECT filmID, film_title, film_release_date, film_opening_crawl, image_url FROM film WHERE filmID = " . $id);
         while($row = $res->fetch(PDO::FETCH_ASSOC)) {
             echo "<h2>" . $row['film_title'] . "</h2>";
-            echo "<img height='300' src='" . $row['image_url'] . "' /><br />";
+            echo '<div class="film-container2">';
+            echo "<img height='300' src='" . $row['image_url'] . "' alt='film_image'/><br />";
+            echo "</div>";
             echo "<b>Release Date: </b>" . "<p>" . $row['film_release_date'] . "</p>";
             echo "<h2>Film Description:</h2>";
             echo "<p>" . $row['film_opening_crawl'] . "</p>";
             echo "<h2>" . "Databank: " . $row['film_title'] . "<h2>";
         }
 
-        //TODO: ADD FUNCTIONALITY FOR OTHER TABLES IN FILM WITHIN A TABLE WITH SELECTABLE TABS USING GET. PRODUCER BELOW IS AN EXAMPLE OF A SINGLE TAB:
-        echo "<h4>" . "Producers: " . "</h4>";
-        // Wrap the producer images and names in a container div
-        echo '<div class="producer-container">';
-        $producers = $open_review_s_db->query("SELECT producerID, producer_name, image_url FROM producer WHERE producerID IN (SELECT producerID FROM film_producer WHERE filmID = $id)");
-        while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
-            echo '<div class="producer-item">';
-            echo "<img height='100' src='" . $row['image_url'] . "' /><br />";
-            echo "<p>" . $row['producer_name'] . "</p>";
-            echo '</div>';
-        }
-        echo '</div>'; // Close the producer-container div
+        ?>
+        <div class="section-buttons">
+            <button onclick="showSection('producers', <?php echo $id ?>)">Producers</button>
+            <button onclick="showSection('people', <?php echo $id ?>)">People</button>
+            <button onclick="showSection('planets', <?php echo $id ?>)">Planets</button>
+            <button onclick="showSection('vehicles', <?php echo $id ?>)">Vehicles</button>
+            <button onclick="showSection('starships', <?php echo $id ?>)">Starships</button>
+        </div>
+
+        <div id="section-content">
+            <!-- Content will be loaded here dynamically -->
+        </div>
+        <?php
 
     } catch (PDOException $e) {
         die($e->getMessage());
     }
-
 }
-
 ?>
+
+
 
 
 </body>

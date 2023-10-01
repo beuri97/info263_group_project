@@ -8,18 +8,28 @@ h1 {
 h2 {
     font-family: 'Poppins';
     color: yellow;
+    text-align: center;
+    padding-top: 15px;
 }
 
 p, a, b, h4, text {
     font-family: 'Poppins';
+    text-align: center;
+    align-items: center;
     color: white;
 }
+
 
 .film-container {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: flex-start;
+}
+
+.film-container2 {
+    align-items: center;
+    text-align: center;
 }
 
 .film-item {
@@ -30,6 +40,7 @@ p, a, b, h4, text {
     width: 300px; /* Limit the width of each item */
     height: 400px;
 }
+
 
 .film-title {
     margin-top: 10px;
@@ -45,15 +56,18 @@ p, a, b, h4, text {
 }
 
 .producer-item {
+    font-size: large;
     text-align: center; /* Center-align items */
     margin: 10px; /* Add spacing around each item */
     border: 1px solid #ccc; /* Add a border to each item */
     padding: 10px; /* Add padding to each item */
     width: 200px; /* Limit the width of each item */
+    height: 150px;
+    background: #100b0b;
 }
 
 /* Reset some default styles */
-body, h1, h2, p {
+body, p {
     margin: 0;
     padding: 0;
 }
@@ -67,7 +81,7 @@ body {
 
 header {
     background-color: #000;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
 nav ul {
@@ -136,4 +150,22 @@ footer {
 
 footer p {
     font-size: 14px;
+}
+
+/* Style the section buttons */
+.section-buttons button {
+    background-color: #e3f81a;
+    color: #100b0b;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style the section content */
+#section-content {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #494747;
 }
