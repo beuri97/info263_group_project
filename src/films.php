@@ -63,13 +63,12 @@ if (!isset($_GET["id"])) {
         echo '<div class="film-container">';
         $res = $open_review_s_db->query("SELECT filmID, film_title, film_release_date, image_url FROM film");
         while($row = $res->fetch(PDO::FETCH_ASSOC)) {
-            echo "<a href=films.php?id=" . $row['filmID'] ."> . '<div class=\"film-item\">'";
+            echo "<a href='films.php?id=" . $row['filmID'] . "' class='film-item'>";
             echo "<img height='300' src='" . $row['image_url'] . "' alt='film_image' /><br />";
             echo '<div class="film-title">';
-            echo "<h2>" . $row['film_title'] . "</h2>";
-            echo '</div>';
-            echo '</a>';
+            echo "<h2 class='no-underline'>" . $row['film_title'] . "</h2>";
             echo "</div>";
+            echo '</a>';
         }
         echo "</div>";
     } catch (PDOException $e) {
@@ -93,7 +92,7 @@ if (!isset($_GET["id"])) {
         ?>
         <div class="section-buttons">
             <button onclick="showSection('producers', <?php echo $id ?>)">Producers</button>
-            <button onclick="showSection('people', <?php echo $id ?>)">People</button>
+            <button onclick="showSection('cast', <?php echo $id ?>)">People</button>
             <button onclick="showSection('planets', <?php echo $id ?>)">Planets</button>
             <button onclick="showSection('vehicles', <?php echo $id ?>)">Vehicles</button>
             <button onclick="showSection('starships', <?php echo $id ?>)">Starships</button>

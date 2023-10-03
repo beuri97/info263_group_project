@@ -24,7 +24,7 @@ p, a, b, h4, text {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .film-container2 {
@@ -38,7 +38,9 @@ p, a, b, h4, text {
     border: 1px solid #ccc; /* Add a border to each item */
     padding: 10px; /* Add padding to each item */
     width: 300px; /* Limit the width of each item */
-    height: 400px;
+    height: 425px;
+    background: rgba(131, 60, 60, 0.15);
+    border: 1px solid #ccc;
 }
 
 
@@ -64,6 +66,30 @@ p, a, b, h4, text {
     width: 200px; /* Limit the width of each item */
     height: 150px;
     background: #100b0b;
+}
+
+.cast-container {
+    display: flex; /* Display items in a row */
+    justify-content: space-between; /* Add space between items */
+    align-items: center; /* Vertically align items */
+    flex-wrap: wrap; /* Wrap items to the next row if necessary */
+    justify-content: flex-start;
+}
+
+.cast-item {
+    font-size: large;
+    text-align: center; /* Center-align items */
+    margin: 10px; /* Add spacing around each item */
+    border: 1px solid #ccc; /* Add a border to each item */
+    padding: 10px; /* Add padding to each item */
+    width: 200px; /* Limit the width of each item */
+    height: 150px;
+    background: #100b0b;
+}
+
+.cast-image{
+    max-width: 175px;
+    max-height: 100px;
 }
 
 /* Reset some default styles */
@@ -168,4 +194,8 @@ footer p {
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #494747;
+}
+
+.no-underline {
+    text-decoration: none !important;
 }
