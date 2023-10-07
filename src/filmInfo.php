@@ -34,7 +34,8 @@ if ($section === 'producers') {
     $producers = $open_review_s_db->query("SELECT producerID, producer_name, image_url FROM producer WHERE producerID IN (SELECT producerID FROM film_producer WHERE filmID = $id)");
     while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
         echo '<div class="producer-item">';
-        echo "<img height='100' src='" . $row['image_url'] . "' alt='film_image'/><br />";
+        $img = explode('/revision',$row['image_url']);
+        echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
         echo "<p>" . $row['producer_name'] . "</p>";
         echo '</div>';
     }
@@ -48,7 +49,8 @@ if ($section === 'producers') {
     $producers = $open_review_s_db->query("SELECT peopleID, people_name, image_url FROM people WHERE peopleID IN (SELECT peopleID FROM film_people WHERE filmID = $id)");
     while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
         echo '<div class="cast-item">';
-        echo "<img class='cast-image' height='100' src='" . $row['image_url'] . "' alt='film_image'/><br />";
+        $img = explode('/revision',$row['image_url']);
+        echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
         echo "<p>" . $row['people_name'] . "</p>";
         echo '</div>';
     }
@@ -62,7 +64,8 @@ if ($section === 'producers') {
     $producers = $open_review_s_db->query("SELECT planetID, planet_name, image_url FROM planet WHERE planetID IN (SELECT planetID FROM film_planet WHERE filmID = $id)");
     while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
         echo '<div class="cast-item">';
-        echo "<img class='cast-image' height='100' src='" . $row['image_url'] . "' alt='film_image'/><br />";
+        $img = explode('/revision',$row['image_url']);
+        echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
         echo "<p>" . $row['planet_name'] . "</p>";
         echo '</div>';
     }
@@ -76,7 +79,8 @@ if ($section === 'producers') {
     $producers = $open_review_s_db->query("SELECT vehicleID, vehicle_name, image_url FROM vehicle WHERE vehicleID IN (SELECT vehicleID FROM film_vehicles WHERE filmID = $id)");
     while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
         echo '<div class="cast-item">';
-        echo "<img class='cast-image' height='100' src='" . $row['image_url'] . "' alt='film_image'/><br />";
+        $img = explode('/revision',$row['image_url']);
+        echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
         echo "<p>" . $row['vehicle_name'] . "</p>";
         echo '</div>';
     }
@@ -90,7 +94,8 @@ if ($section === 'producers') {
     $producers = $open_review_s_db->query("SELECT starshipID, starship_name, image_url FROM starship WHERE starshipID IN (SELECT starshipID FROM film_starships WHERE filmID = $id)");
     while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
         echo '<div class="cast-item">';
-        echo "<img class='cast-image' height='100' src='" . $row['image_url'] . "' alt='film_image'/><br />";
+        $img = explode('/revision',$row['image_url']);
+        echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
         echo "<p>" . $row['starship_name'] . "</p>";
         echo '</div>';
     }
