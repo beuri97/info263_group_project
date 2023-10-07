@@ -28,7 +28,7 @@ $id = $_GET['id'];
 $section = $_GET['section'];
 if ($section === 'producers') {
     // Handle the "producers" section
-    echo "<h4>" . "Producers: " . "</h4>";
+    echo "<h2>" . "Producers: " . "</h2>";
     // Wrap the producer images and names in a container div
     echo '<div class="producer-container">';
     $producers = $open_review_s_db->query("SELECT producerID, producer_name, image_url FROM producer WHERE producerID IN (SELECT producerID FROM film_producer WHERE filmID = $id)");
@@ -42,7 +42,7 @@ if ($section === 'producers') {
 
 } elseif ($section === 'cast') {
     // Handle the "cast" section
-    echo "<h4>" . "Cast: " . "</h4>";
+    echo "<h2>" . "Cast: " . "</h2>";
     // Wrap the cast images and names in a container div
     echo '<div class="cast-container">';
     $producers = $open_review_s_db->query("SELECT peopleID, people_name, image_url FROM people WHERE peopleID IN (SELECT peopleID FROM film_people WHERE filmID = $id)");
@@ -56,7 +56,7 @@ if ($section === 'producers') {
 
 } elseif ($section === 'planets') {
     // Handle the "Planets" section
-    echo "<h4>" . "planets: " . "</h4>";
+    echo "<h2>" . "planets: " . "</h2>";
     // Wrap the planet images and names in a container div
     echo '<div class="cast-container">';
     $producers = $open_review_s_db->query("SELECT planetID, planet_name, image_url FROM planet WHERE planetID IN (SELECT planetID FROM film_planet WHERE filmID = $id)");
@@ -70,7 +70,7 @@ if ($section === 'producers') {
 
 } elseif ($section === 'vehicles') {
     // Handle the "Vehicles" section
-    echo "<h4>" . "vehicles: " . "</h4>";
+    echo "<h2>" . "vehicles: " . "</h2>";
     // Wrap the vehicles images and names in a container div
     echo '<div class="cast-container">';
     $producers = $open_review_s_db->query("SELECT vehicleID, vehicle_name, image_url FROM vehicle WHERE vehicleID IN (SELECT vehicleID FROM film_vehicles WHERE filmID = $id)");
@@ -84,7 +84,7 @@ if ($section === 'producers') {
 
 } elseif ($section === 'starships') {
     // Handle the "Starships" section
-    echo "<h4>" . "Starships: " . "</h4>";
+    echo "<h2>" . "Starships: " . "</h2>";
     // Wrap the Starships images and names in a container div
     echo '<div class="cast-container">';
     $producers = $open_review_s_db->query("SELECT starshipID, starship_name, image_url FROM starship WHERE starshipID IN (SELECT starshipID FROM film_starships WHERE filmID = $id)");

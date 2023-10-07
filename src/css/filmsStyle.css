@@ -6,7 +6,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'Poppins';
+    font-family: 'Star Wars', sans-serif;
     color: yellow;
     text-align: center;
     padding-top: 15px;
@@ -17,6 +17,18 @@ p, a, b, h4, text {
     text-align: center;
     align-items: center;
     color: white;
+}
+
+.desc {
+    font-family: 'Poppins';
+    text-align: justify;
+}
+
+.title {
+    font-family: 'Star Wars', sans-serif;
+    text-align: justify;
+    text-align: center;
+    align-items: center;
 }
 
 
@@ -30,6 +42,8 @@ p, a, b, h4, text {
 .film-container2 {
     align-items: center;
     text-align: center;
+    background: #333333;
+    padding: 10px;
 }
 
 .film-item {
@@ -38,7 +52,7 @@ p, a, b, h4, text {
     border: 1px solid #ccc; /* Add a border to each item */
     padding: 10px; /* Add padding to each item */
     width: 300px; /* Limit the width of each item */
-    height: 425px;
+    height: 475px;
     background: rgba(131, 60, 60, 0.15);
     border: 1px solid #ccc;
 }
@@ -51,10 +65,10 @@ p, a, b, h4, text {
 
 .producer-container {
     display: flex; /* Display items in a row */
-    justify-content: space-between; /* Add space between items */
     align-items: center; /* Vertically align items */
     flex-wrap: wrap; /* Wrap items to the next row if necessary */
-    justify-content: flex-start;
+    text-align: center;
+    justify-content: space-evenly;
 }
 
 .producer-item {
@@ -64,26 +78,27 @@ p, a, b, h4, text {
     border: 1px solid #ccc; /* Add a border to each item */
     padding: 10px; /* Add padding to each item */
     width: 200px; /* Limit the width of each item */
-    height: 150px;
+    height: 170px;
     background: #100b0b;
 }
 
 .cast-container {
     display: flex; /* Display items in a row */
-    justify-content: space-between; /* Add space between items */
+    text-align: center;
     align-items: center; /* Vertically align items */
     flex-wrap: wrap; /* Wrap items to the next row if necessary */
-    justify-content: flex-start;
+    justify-content: space-evenly;
 }
 
 .cast-item {
     font-size: large;
     text-align: center; /* Center-align items */
+
     margin: 10px; /* Add spacing around each item */
     border: 1px solid #ccc; /* Add a border to each item */
     padding: 10px; /* Add padding to each item */
     width: 200px; /* Limit the width of each item */
-    height: 150px;
+    height: 170px;
     background: #100b0b;
 }
 
@@ -92,11 +107,6 @@ p, a, b, h4, text {
     max-height: 100px;
 }
 
-/* Reset some default styles */
-body, p {
-    margin: 0;
-    padding: 0;
-}
 
 /* Basic styling */
 body {
@@ -194,8 +204,13 @@ footer p {
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #494747;
+    text-align: center;
 }
 
 .no-underline {
     text-decoration: none !important;
+}
+
+.padding-above {
+    padding-top: 20px;
 }
