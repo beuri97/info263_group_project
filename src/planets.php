@@ -77,6 +77,8 @@ while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
 }
 echo '</div>'; // Close the planet-container div
 
+
+
 ?>
 
 </body>

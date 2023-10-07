@@ -67,13 +67,13 @@ try {
 
 // Wrap the cast images and names in a container div
 echo '<div class="cast-container">';
-$producers = $open_review_s_db->query("SELECT peopleID, people_name, image_url FROM people");
-while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
-    echo '<div class="cast-item">';
+$cast = $open_review_s_db->query("SELECT peopleID, people_name, image_url FROM people");
+while($row = $cast->fetch(PDO::FETCH_ASSOC)) {
+    ?> <a href='peopleinfo.php?id=<?php echo $row['peopleID']; ?>' class="cast-item"> <?php
     $img = explode('/revision',$row['image_url']);
     echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
     echo "<p>" . $row['people_name'] . "</p>";
-    echo '</div>';
+    echo '</a>';
 }
 echo '</div>'; // Close the cast-container div
 
