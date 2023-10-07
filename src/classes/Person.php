@@ -12,11 +12,12 @@ class Person
     protected $eyeColor;
     protected $birth;
     protected $gender;
+    protected $homeWorldId;
     protected $homeWorld;
     protected $species;
     protected $image;
 
-    function __construct($id, $name, $height, $mass, $hairColor, $skinColor, $eyeColor, $birth, $gender, $homeWorld,
+    function __construct($id, $name, $height, $mass, $hairColor, $skinColor, $eyeColor, $birth, $gender, $homeWorldId, $homeWorld,
                          $species, $image)
     {
         $this->id = $id;
@@ -28,6 +29,7 @@ class Person
         $this->eyeColor = $eyeColor;
         $this->birth = $birth;
         $this->gender = $gender;
+        $this->homeWorldId = $homeWorldId;
         $this->homeWorld = $homeWorld;
         $this->species = $species;
         $this->image = $image;
@@ -54,12 +56,29 @@ class Person
             $img = explode('/revision', $result['image_url']);
             return new Person($result['peopleID'], $result['people_name'], $result['people_height'], $result['people_mass'],
                 $result['people_hair_color'], $result['people_skin_color'], $result['people_eye_color'], $result['people_birth_year'],
-                $result['people_gender'], $homeworldResult['planet_name'], $speciesResult['species_name'], $img[0]);
+                $result['people_gender'], $result['people_homeworld_id'], $homeworldResult['planet_name'], $speciesResult['species_name'], $img[0]);
 
         } catch (PDOException $e) {
             die($e->getMessage());
         }
     }
+
+
+    public function getPlanetImage($planetId)
+    {
+        try {
+            $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
+            $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $homeworld = $open_review_s_db->query("SELECT * FROM planet WHERE planetID = " . $planetId);
+            $homeworldResult = $homeworld->fetch(PDO::FETCH_ASSOC);
+            $img = explode('/revision', $homeworldResult['image_url']);
+            return $img[0];
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     /**
      * @return mixed
@@ -123,6 +142,14 @@ class Person
     public function getGender()
     {
         return $this->gender;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHomeWorldId()
+    {
+        return $this->homeWorldId;
     }
 
     /**

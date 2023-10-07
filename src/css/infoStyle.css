@@ -8,7 +8,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'Star Wars', sans-serif;
+    font-family: 'SF Distant Galaxy', sans-serif;
     color: yellow;
     text-align: center;
     padding-top: 15px;
@@ -60,6 +60,49 @@ p, a, b, h4, text {
     max-width: 600px;
     max-height: 600px;
     border: 2px solid #ffffff;
+}
+
+.people-item {
+    font-size: large;
+    text-align: center; /* Center-align items */
+
+    margin: 10px; /* Add spacing around each item */
+    border: 1px solid #ccc; /* Add a border to each item */
+    padding: 10px; /* Add padding to each item */
+    width: 200px; /* Limit the width of each item */
+    height: 170px;
+    background: #100b0b;
+}
+
+.people-container {
+    display: flex; /* Display items in a row */
+    align-items: center; /* Vertically align items */
+    flex-wrap: wrap; /* Wrap items to the next row if necessary */
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.planet-image{
+    max-width: 175px;
+    max-height: 100px;
+}
+
+.film-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.film-item {
+    text-align: center; /* Center-align items */
+    margin: 10px; /* Add spacing around each item */
+    border: 1px solid #ccc; /* Add a border to each item */
+    padding: 10px; /* Add padding to each item */
+    width: 300px; /* Limit the width of each item */
+    height: 350px;
+    background: rgba(131, 60, 60, 0.15);
+    border: 1px solid #ccc;
 }
 
 
