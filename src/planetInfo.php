@@ -54,63 +54,63 @@
     </div>
 </div>
 
-
 <?php
 
-require 'classes/Person.php'; // Include the Person class
+require 'classes/Planet.php'; // Include the Person class
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     // Fetch the person's information by ID using your Person class
-    $person = Person::findById($id);
+    $planet = Planet::findById($id);
 
-    $planetId = $person->getHomeWorldId();
-?>
-<div class='container-fluid padding-above container-color' >
-    <div class='row py-2 justify-content-center'>
+    ?>
+    <div class='container-fluid padding-above container-color' >
+        <div class='row py-2 justify-content-center'>
             <div class='col-6 px-4'>
                 <div class="info-container">
-                    <img height='300' src='<?php echo $person->getImage(); ?>' alt='cast_image' class='info-image' /><br />
-                    <h2> <?php echo $person->getName() ?> </h2>
+                    <img height='300' src='<?php echo $planet->getImage(); ?>' alt='cast_image' class='info-image' /><br />
+                    <h2> <?php echo $planet->getName() ?> </h2>
                 </div>
             </div>
 
             <div class='col-6 px-4 text-center '>
                 <h2> information: </h2>
-                <p> <?php echo 'Species: ' . $person->getSpecies(); ?> </p>
-                <p> <?php echo $person->getGender() . ', ' . $person->getMass() . ', born in ' . $person->getBirth(); ?> </p>
-                <p> <?php echo $person->getHairColor() . ', ' . $person->getSkinColor() . ', ' . $person->getEyeColor(); ?> </p>
-                <h4> Home World:  </h4>
-
-                <div class="people-container">
-                <a href='planetInfo.php?id=<?php echo $planetId; ?>' class='people-item'>
-                    <img height='100' src='<?php echo $person->getPlanetImage($planetId); ?>' alt='planet-image' /><br />
-                    <p> <?php echo $person->getHomeWorld(); ?> </p>
-                </a>
-                </div>
+                <p> <?php echo 'Rotation: ' . $planet->getRotation(); ?> </p>
+                <p> <?php echo 'Orbit: ' . $planet->getOrbit(); ?> </p>
+                <p> <?php echo 'Diameter: ' . $planet->getDiameter(); ?> </p>
+                <p> <?php echo 'Diameter: ' . $planet->getGravity(); ?> </p>
+                <p> <?php echo 'Surface Water: ' . $planet->getWater(); ?> </p>
+                <p> <?php echo 'Population: ' . $planet->getPopulation(); ?> </p>
+                <p> <?php echo 'Climate: ' . $planet->getClimate(); ?> </p>
+                <p> <?php echo 'Terrain: ' . $planet->getTerrain(); ?> </p>
             </div>
         </div>
     </div>
     <div class='row- py-2 justify-content-center'>
         <div class='col-12 px-4'>
-            <h4> Movies:  </h4>
             <?php
             try {
                 $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
                 $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo '<div class="film-container">';
-                $films = $open_review_s_db->query("SELECT * FROM film WHERE filmID IN (SELECT filmID FROM film_people WHERE peopleID = ". $id . ")");
-                while($result = $films->fetch(PDO::FETCH_ASSOC)) {
-                    ?>
-                    <a href='films.php?id=<?php echo $result['filmID']; ?>' class='film-item'>
-                        <img height='300' src='<?php echo $result['image_url']; ?>' alt='film_image' /><br />
-                        <div class="film-title">
-                            <p class='no-underline'> <?php echo $result['film_title']; ?> </p>
-                        </div>
-                    </a>
-                    <?php
+                $films = $open_review_s_db->query("SELECT * FROM film WHERE filmID IN (SELECT filmID FROM film_planet WHERE planetID = ". $id . ")");
+                $countQuery = $open_review_s_db->query("SELECT count(*) as num FROM film WHERE filmID IN (SELECT filmID FROM film_planet WHERE planetID = ". $id . ")");
+                $count = $countQuery->fetch(PDO::FETCH_ASSOC);
+                if ($count['num'] > 0){
+                    echo '<h4> Movies:  </h4>';
+
+                    echo '<div class="film-container">';
+                    while($result = $films->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <a href='films.php?id=<?php echo $result['filmID']; ?>' class='film-item'>
+                            <img height='300' src='<?php echo $result['image_url']; ?>' alt='film_image' /><br />
+                            <div class="film-title">
+                                <p class='no-underline'> <?php echo $result['film_title']; ?> </p>
+                            </div>
+                        </a>
+                        <?php
+                    }
+                    echo '</div>';
                 }
-                echo '</div>';
 
             } catch (PDOException $e) {
                 die($e->getMessage());
@@ -118,8 +118,8 @@ if (isset($_GET['id'])) {
             ?>
         </div>
     </div>
-</div>
+    </div>
 
 <?php } ?>
 </body>
-</html>
+

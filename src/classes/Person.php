@@ -43,10 +43,10 @@ class Person
             $cast = $open_review_s_db->query("SELECT * FROM people WHERE peopleID = " . $id);
             $result = $cast->fetch(PDO::FETCH_ASSOC);
 
-            $species = $open_review_s_db->query("SELECT * FROM species WHERE speciesID = " . $id);
+            $species = $open_review_s_db->query("SELECT * FROM species WHERE speciesID = " . $result['people_species_id']);
             $speciesResult = $species->fetch(PDO::FETCH_ASSOC);
 
-            $homeworld = $open_review_s_db->query("SELECT * FROM planet WHERE planetID = " . $id);
+            $homeworld = $open_review_s_db->query("SELECT * FROM planet WHERE planetID = " . $result['people_homeworld_id']);
             $homeworldResult = $homeworld->fetch(PDO::FETCH_ASSOC);
 
             if (!$result) {

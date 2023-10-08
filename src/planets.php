@@ -67,13 +67,13 @@ try {
 
 // Wrap the planet images and names in a container div
 echo '<div class="cast-container">';
-$producers = $open_review_s_db->query("SELECT planetID, planet_name, image_url FROM planet");
-while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
-    echo '<div class="cast-item">';
+$planets = $open_review_s_db->query("SELECT planetID, planet_name, image_url FROM planet");
+while($row = $planets->fetch(PDO::FETCH_ASSOC)) {
+    ?> <a href='planetInfo.php?id=<?php echo $row['planetID']; ?>' class="cast-item"> <?php
     $img = explode('/revision',$row['image_url']);
-    echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
+    echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='planet_image'/><br />";
     echo "<p>" . $row['planet_name'] . "</p>";
-    echo '</div>';
+    echo '</a>';
 }
 echo '</div>'; // Close the planet-container div
 
