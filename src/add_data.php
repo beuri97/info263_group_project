@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>Star Wars</title>
 </head>
+
+<?php
+
+include 'headerPage.html';
+
+?>
+
 <style>
     td {
         text-align: center;

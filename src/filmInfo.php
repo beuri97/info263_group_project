@@ -16,6 +16,8 @@
 
 <body>
 <?php
+
+
 try {
     $open_review_s_db = new PDO("sqlite:resources/star_wars.db");
     $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
