@@ -68,26 +68,28 @@ if (isset($_GET['id'])) {
 ?>
 <div class='container-fluid padding-above container-color' >
     <div class='row py-2 justify-content-center'>
-            <div class='col-6 px-4'>
+            <div class='col-4 px-4'>
                 <div class="info-container">
                     <img height='300' src='<?php echo $person->getImage(); ?>' alt='cast_image' class='info-image' /><br />
                     <h2> <?php echo $person->getName() ?> </h2>
                 </div>
             </div>
-
-            <div class='col-6 px-4 text-center '>
+            <div class='col-4 px-4 text-center '>
+                <h2> Home World:  </h2>
+                <div class="people-container">
+                    <a href='planetInfo.php?id=<?php echo $planetId; ?>' class='people-item'>
+                        <img height='100' src='<?php echo $person->getPlanetImage($planetId); ?>' alt='planet-image' /><br />
+                        <p> <?php echo $person->getHomeWorld(); ?> </p>
+                    </a>
+                </div>
+            </div>
+            <div class='col-4 px-4 text-center '>
                 <h2> information: </h2>
                 <p> <?php echo 'Species: ' . $person->getSpecies(); ?> </p>
-                <p> <?php echo $person->getGender() . ', ' . $person->getMass() . ', born in ' . $person->getBirth(); ?> </p>
-                <p> <?php echo $person->getHairColor() . ', ' . $person->getSkinColor() . ', ' . $person->getEyeColor(); ?> </p>
-                <h4> Home World:  </h4>
-
-                <div class="people-container">
-                <a href='planetInfo.php?id=<?php echo $planetId; ?>' class='people-item'>
-                    <img height='100' src='<?php echo $person->getPlanetImage($planetId); ?>' alt='planet-image' /><br />
-                    <p> <?php echo $person->getHomeWorld(); ?> </p>
-                </a>
-                </div>
+                <p> <?php echo $person->getGender() . ', Weight: ' . $person->getMass() . ', born in ' . $person->getBirth(); ?> </p>
+                <p> <?php echo 'Hair Color: ' . $person->getHairColor(); ?> </p>
+                <p> <?php echo 'Skin Color: ' . $person->getSkinColor(); ?> </p>
+                <p> <?php echo 'Eye Color: ' . $person->getEyeColor(); ?> </p>
             </div>
         </div>
     </div>
