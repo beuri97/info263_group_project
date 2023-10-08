@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Star Wars - Films</title>
 
+    <?php
+    include 'headerPage.html';
+    ?>
+
     <!-- Page Style -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -13,50 +17,12 @@
 
     <!-- Scripts -->
     <script type = "text/javascript" src="js/filmsScript.js"></script>
+
 </head>
 
 <body>
-<!-- Nav Bar Title -->
-<div style="text-align: center;">
-    <h1>Star Wars Project</h1>
-</div>
-<div style="text-align: center;">
-    <img src="img/logo.png" width="200" alt='film_image'/>
-</div>
-
-<!-- Navigation -->
-<div class='container-fluid padding-above'>
-    <div class='row py-2 justify-content-center'>
-        <div class='col-8 px-4'>
-            <div style="text-align: left;">
-                <nav>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="films.php">Films</a></li>
-                        <li><a href="planets.php">Planets</a></li>
-                        <li><a href="people.php">People</a></li>
-                        <li><a href="form.php">Form</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-
-        <!-- Search -->
-        <div class='col-4 px-4'>
-            <div style="text-align: right;">
-                <form>
-                    <label for="search-bar">Search:</label>
-                    <input type="text" id="search-bar" />
-                    <input type="submit">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <?php
-
 require 'classes/Person.php'; // Include the Person class
 
 if (isset($_GET['id'])) {
