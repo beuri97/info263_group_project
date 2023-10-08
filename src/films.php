@@ -3,29 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars - Films</title>
-</head>
-<body>
 
+    <!-- Page Style -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'/>
+    <link href="https://fonts.cdnfonts.com/css/sf-distant-galaxy" rel="stylesheet">
+    <link rel="stylesheet" href="css/filmsStyle.css">
+
+    <!-- Scripts -->
+    <script type = "text/javascript" src="js/filmsScript.js"></script>
+</head>
+
+<body>
+<!-- Nav Bar Title -->
+<div style="text-align: center;">
+    <h1>Star Wars Project</h1>
+</div>
+<div style="text-align: center;">
+    <img src="img/logo.png" width="200" alt='film_image'/>
+</div>
 
 <!-- Navigation -->
-<nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="films.php">Films</a></li>
-        <li><a href="planets.php">Planets</a></li>
-        <li><a href="people.php">People</a></li>
-    </ul>
-</nav>
+<div class='container-fluid padding-above'>
+    <div class='row py-2 justify-content-center'>
+        <div class='col-8 px-4'>
+            <div style="text-align: left;">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="films.php">Films</a></li>
+                        <li><a href="planets.php">Planets</a></li>
+                        <li><a href="people.php">People</a></li>
+                        <li><a href="form.php">Form</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
 
-<!-- Search -->
-<form>
-    <label for="search-bar">Search:</label>
-    <input type="text" id="search-bar" />
-    <input type="submit">
-</form>
-
-
-<h1>Films</h1>
+        <!-- Search -->
+        <div class='col-4 px-4'>
+            <div style="text-align: right;">
+                <form>
+                    <label for="search-bar">Search:</label>
+                    <input type="text" id="search-bar" />
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
 
@@ -39,90 +66,73 @@ try {
 if (!isset($_GET["id"])) {
 
     try {
+        echo '<h1>Films</h1>';
+        echo '<div class="film-container">';
         $res = $open_review_s_db->query("SELECT filmID, film_title, film_release_date, image_url FROM film");
         while($row = $res->fetch(PDO::FETCH_ASSOC)) {
-            echo "<h2>" . $row['film_title'] . "</h2>";
-            echo "<a href='films.php?id=" . $row['filmID'] ."'><img height='300' src='" . $row['image_url'] . "' /></a><br />";
+            ?>
+                <a href='films.php?id=<?php echo $row['filmID']; ?>' class='film-item'>
+                    <img height='300' src='<?php echo $row['image_url']; ?>' alt='film_image' /><br />
+                    <div class="film-title">
+                        <h2 class='no-underline'> <?php echo $row['film_title']; ?> </h2>
+                    </div>
+                </a>
+
+            <?php
         }
+        echo '</div>';
     } catch (PDOException $e) {
         die($e->getMessage());
     }
+
 } else {
     $id = $_GET["id"];
     try {
+        echo "<div class='container-fluid padding-above'>";
+        echo "<div class='row py-2 justify-content-center'>";
         $res = $open_review_s_db->query("SELECT filmID, film_title, film_release_date, film_opening_crawl, image_url FROM film WHERE filmID = " . $id);
         while($row = $res->fetch(PDO::FETCH_ASSOC)) {
-            echo "<h2>" . $row['film_title'] . "</h2>";
-            echo "<a href='films.php?id=" . $row['filmID'] ."'><img height='300' src='" . $row['image_url'] . "' /></a><br />";
-            echo "<b>Release Date: </b>" . "<p>" . $row['film_release_date'] . "</p>";
-            echo "<h2>Film Description:</h2>";
-            echo "<p>" . $row['film_opening_crawl'] . "</p>";
-            echo "<h2>" . "Databank: " . $row['film_title'] . "<h2>";
-        }
+            ?>
+            <div class='col-4 px-4'>
+                <div class="film-container2">
+                    <h2> <?php echo $row['film_title']; ?> </h2>
+                    <img height='300' src='<?php echo $row['image_url']; ?>' alt='film_image' /><br />
+                    <b>Release Date: </b>
+                    <p><?php echo$row['film_release_date']; ?></p>
+                    <h2>Film Description:</h2>
+                    <p class="desc"><?php echo$row['film_opening_crawl']; ?></p>
+                </div>
+            </div>
+            <div class='col-8 px-4 text-center '>
+                <h2> Databank: <?php echo $row['film_title']; ?></h2>
 
-        //TODO: ADD FUNCTIONALITY FOR OTHER TABLES IN FILM WITHIN A TABLE WITH SELECTABLE TABS USING GET. PRODUCER BELOW IS AN EXAMPLE OF A SINGLE TAB:
-        echo "<h4>" . "Producers: " . "</h4>";
-        // Wrap the producer images and names in a container div
-        echo '<div class="producer-container">';
-        $producers = $open_review_s_db->query("SELECT producerID, producer_name, image_url FROM producer WHERE producerID IN (SELECT producerID FROM film_producer WHERE filmID = $id)");
-        while($row = $producers->fetch(PDO::FETCH_ASSOC)) {
-            echo '<div class="producer-item">';
-            echo "<img height='100' src='" . $row['image_url'] . "' /><br />";
-            echo "<p>" . $row['producer_name'] . "</p>";
-            echo '</div>';
-        }
-        echo '</div>'; // Close the producer-container div
+        <?php } ?>
+
+                <div class="section-buttons">
+                    <button onclick="showSection('producers', <?php echo $id ?>)">Producers</button>
+                    <button onclick="showSection('cast', <?php echo $id ?>)">People</button>
+                    <button onclick="showSection('planets', <?php echo $id ?>)">Planets</button>
+                    <button onclick="showSection('vehicles', <?php echo $id ?>)">Vehicles</button>
+                    <button onclick="showSection('starships', <?php echo $id ?>)">Starships</button>
+                </div>
+
+                <div id="section-content">
+                    <!-- Content will be loaded here dynamically -->
+                </div>
+            </div>
+
+        <?php
+        echo "</div>";
+        echo "</div>";
 
     } catch (PDOException $e) {
         die($e->getMessage());
     }
-
 }
-
 ?>
 
 
-<ul>
-    <li><a href="films.php">Back</a></li>
-</ul>
 
-<!-- Add CSS for formatting -->
-<style>
-
-    body {
-        background-color: #080807;
-    }
-
-    h1 {
-        font-style: italic;
-        color: white;
-    }
-
-    h2 {
-        font-style: italic;
-        color: yellow;
-    }
-
-    p, a, b, h4, text {
-        color: white;
-    }
-
-    .producer-container {
-        display: flex; /* Display items in a row */
-        justify-content: space-between; /* Add space between items */
-        align-items: center; /* Vertically align items */
-        flex-wrap: wrap; /* Wrap items to the next row if necessary */
-        justify-content: flex-start;
-    }
-
-    .producer-item {
-        text-align: center; /* Center-align items */
-        margin: 10px; /* Add spacing around each item */
-        border: 1px solid #ccc; /* Add a border to each item */
-        padding: 10px; /* Add padding to each item */
-        width: 200px; /* Limit the width of each item */
-    }
-</style>
 
 </body>
 </html>
