@@ -109,7 +109,6 @@ $crawl = $_POST['input-crawl'];
 
 if(isset($_POST['add']) and $title != '' and $episode != '' and $director != ''
     and $release != '' and $crawl != '') {
-    $db = openConnection();
     $number = $db->query("SELECT max(filmID) from film")->fetch() + 1;
     $url = ($_POST['url'] == '') ? NULL : $_POST['url'];
     $query = "INSERT INTO film values($number, $title, $episode, $crawl, $director, $release, $url )";
