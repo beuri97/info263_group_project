@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars</title>
+
+    <?php
+
+    include 'headerPage.html';
+
+    ?>
+    <!-- Page Style -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'/>
+    <link href="https://fonts.cdnfonts.com/css/sf-distant-galaxy" rel="stylesheet">
+    <link rel="stylesheet" href="css/filmsStyle.css">
 </head>
-
-<?php
-
-include 'headerPage.html';
-
-?>
 
 <style>
     td {
         text-align: center;
         font-family: Arial;
         font-weight: bold;
-        border: 1px black solid;
+        border: 1px white solid;
     }
     input[type="text"] {
         width: 100%;
@@ -33,11 +39,11 @@ include 'headerPage.html';
     }
     table{
         width: 50%;
-        border: 1px black solid;
+        border: 3px white solid;
 
     }
     th {
-        border: 1px black solid;
+        border: 1px white solid;
     }
     div[id="Add_data_film"] {
         margin-left: 3%;
@@ -45,14 +51,12 @@ include 'headerPage.html';
 </style>
 
 <body>
-<h1>Star Wars</h1>
 <br>
 <br>
 <h2>Add Film</h2>
-<p>Add additional data to provide accurate information!!</p>
 <div id = "Add_data_film">
     <form action="add_data.php" method="post">
-        <table>
+        <table style="text-align: center">
             <tr>
                 <td><label for="input-title">Title</label></td>
                 <td id="td-title"><input id = "input-title" type="text" name = "title" ></td>
@@ -65,7 +69,7 @@ include 'headerPage.html';
             </tr>
             <tr>
                 <td><label for="input-crawl">Opening Crawl</label></td>
-                <td colspan="9" id="td-crawl"><textarea id="input-crawl" style="resize: none" rows="10" >Enter text here.</textarea> </td>
+                <td colspan="9" id="td-crawl"><textarea id="input-crawl" style="resize: none" rows="10" name="crawl">Enter text here.</textarea> </td>
             </tr>
             <tr>
                 <td><label for="input-url">image URL</label></td>
@@ -100,20 +104,37 @@ try {
 } catch (PDOException $e) {
     die($e->getMessage());
 }
+// important
+if (isset($_POST['title']))
+{
+    $title = $_POST['title'];
+} else {
+    $title = NULL;
+}
 
-$title = $_POST['title'];
 $episode = $_POST['episode'];
 $director = $_POST['director'];
 $release = $_POST['release_date'];
-$crawl = $_POST['input-crawl'];
+$crawl = $_POST['crawl'];
+
+echo $release;
 
 if(isset($_POST['add']) and $title != '' and $episode != '' and $director != ''
     and $release != '' and $crawl != '') {
-    $number = $db->query("SELECT max(filmID) from film")->fetch() + 1;
+    echo "HELLO IT starts here";
+    $result = $db->query("SELECT max(filmID) as num from film");
+    $resultNum = $result->fetch(PDO::FETCH_ASSOC);
+    $number = $resultNum['num'] + 1;
     $url = ($_POST['url'] == '') ? NULL : $_POST['url'];
-    $query = "INSERT INTO film values($number, $title, $episode, $crawl, $director, $release, $url )";
-    $db->query($query);
+    echo "test1";
+    $query = "INSERT INTO film(filmID, film_title, film_episode_id, film_opening_crawl, film_director, film_release_date, image_url)
+                values($number, $title, $episode, $crawl, $director, $release, $url)";
+    echo "test2";
+    $stmt = $db->prepare($query);
+    echo "test3";
+    $stmt->execute();
     $db = null;
+    echo "SUCCESS";
 
 } else if(isset($_POST['add']) and ($title == '' or $episode == '' or $director == ''
         or $release == '' or $crawl == '')) {
