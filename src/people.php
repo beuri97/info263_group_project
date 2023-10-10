@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Star Wars - Films</title>
+    <title>Star Wars - People</title>
     <?php
     include 'headerPage.html';
     ?>

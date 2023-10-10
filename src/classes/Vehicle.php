@@ -11,7 +11,7 @@ class Vehicle
     protected $crew;
     protected $passengers;
     protected $cargoCapacity;
-    protected $conusumes;
+    protected $consumes;
     protected $classID;
     protected $image;
     protected $manufacturerID;
@@ -27,13 +27,13 @@ class Vehicle
      * @param $crew
      * @param $passengers
      * @param $cargoCapacity
-     * @param $conusumes
+     * @param $consumes
      * @param $classID
      * @param $image
      * @param $manufacturerID
      * @param $vehicle_class
      */
-    public function __construct($id, $name, $model, $cost, $length, $maxSpeed, $crew, $passengers, $cargoCapacity, $conusumes, $classID, $image, $manufacturerID, $vehicle_class)
+    public function __construct($id, $name, $model, $cost, $length, $maxSpeed, $crew, $passengers, $cargoCapacity, $consumes, $classID, $image, $manufacturerID, $vehicle_class)
     {
         $this->id = $id;
         $this->name = $name;
@@ -44,7 +44,7 @@ class Vehicle
         $this->crew = $crew;
         $this->passengers = $passengers;
         $this->cargoCapacity = $cargoCapacity;
-        $this->conusumes = $conusumes;
+        $this->consumes = $consumes;
         $this->classID = $classID;
         $this->image = $image;
         $this->manufacturerID = $manufacturerID;
@@ -63,7 +63,7 @@ class Vehicle
             $manufacturer = $open_review_s_db->query("SELECT * FROM vehicle_manufacturer WHERE vehicleID = " . $id);
             $resultManufacturer = $manufacturer->fetch(PDO::FETCH_ASSOC);
 
-            $vehicleClass = $open_review_s_db->query("SELECT * FROM vehicleclass WHERE vehicleID = " . $result['vehicleclassID']);
+            $vehicleClass = $open_review_s_db->query("SELECT * FROM vehicleclass WHERE vehicleclassID = " . $result['vehicleclassID']);
             $resultVehicleClass = $vehicleClass->fetch(PDO::FETCH_ASSOC);
 
             if (!$result) {
@@ -74,7 +74,7 @@ class Vehicle
             return new Vehicle($result['vehicleID'], $result['vehicle_name'], $result['vehicle_model'], $result['vehicle_cost_in_credits'],
                 $result['vehicle_length'], $result['vehicle_max_atmosphering_speed'], $result['vehicle_crew'], $result['vehicle_passengers'],
                 $result['vehicle_cargo_capacity'], $result['vehicle_consumables'], $result['vehicleclassID'],
-                $img[0], $resultManufacturer['$manufacturerID'], $resultVehicleClass['vehicle_class']);
+                $img[0], $resultManufacturer['manufacturerID'], $resultVehicleClass['vehicle_class']);
 
         } catch (PDOException $e) {
             die($e->getMessage());
@@ -156,9 +156,9 @@ class Vehicle
     /**
      * @return mixed
      */
-    public function getConusumes()
+    public function getConsumes()
     {
-        return $this->conusumes;
+        return $this->consumes;
     }
 
     /**

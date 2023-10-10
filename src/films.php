@@ -57,15 +57,16 @@ if (!isset($_GET["id"])) {
     try {
         echo "<div class='container-fluid padding-above'>";
         echo "<div class='row py-2 justify-content-center'>";
-        $res = $open_review_s_db->query("SELECT filmID, film_title, film_release_date, film_opening_crawl, image_url FROM film WHERE filmID = " . $id);
+        $res = $open_review_s_db->query("SELECT filmID, film_title, film_episode_id, film_release_date, film_director, film_opening_crawl, image_url FROM film WHERE filmID = " . $id);
         while($row = $res->fetch(PDO::FETCH_ASSOC)) {
             ?>
             <div class='col-4 px-4'>
                 <div class="film-container2">
                     <h2> <?php echo $row['film_title']; ?> </h2>
                     <img height='300' src='<?php echo $row['image_url']; ?>' alt='film_image' /><br />
-                    <b>Release Date: </b>
-                    <p><?php echo$row['film_release_date']; ?></p>
+                    <b>Release Date: <?php echo$row['film_release_date']; ?> <br></b>
+                    <b>Directed By: <?php echo$row['film_director']; ?></b>
+                    <h2>Episode: <?php echo$row['film_episode_id']; ?></h2>
                     <h2>Film Description:</h2>
                     <p class="desc"><?php echo$row['film_opening_crawl']; ?></p>
                 </div>
