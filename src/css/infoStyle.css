@@ -41,6 +41,7 @@ p, a, b, h4, text {
     text-align: center;
     background: rgba(0, 0, 0, 0);
     padding: 10px;
+
 }
 
 .info-item {
@@ -60,6 +61,48 @@ p, a, b, h4, text {
     max-width: 600px;
     max-height: 600px;
     border: 2px solid #ffffff;
+    width: 100%; /* Scale down to fit the container width */
+    height: auto; /* Allow the height to adjust proportionally */
+}
+
+.man-image{
+    text-align: center;
+    align-items: center;
+    max-width: 300px;
+    max-height: 300px;
+    border: 2px solid #ffffff;
+    width: 100%; /* Scale down to fit the container width */
+    height: auto; /* Allow the height to adjust proportionally */
+}
+
+.plan-image{
+    text-align: center;
+    align-items: center;
+    max-width: 300px;
+    max-height: 300px;
+    border: 2px solid #ffffff;
+    width: 100%; /* Scale down to fit the container width */
+    height: auto; /* Allow the height to adjust proportionally */
+}
+
+.subplan-image{
+    text-align: center;
+    align-items: center;
+    max-width: 200px;
+    max-height: 200px;
+    border: 2px solid #ffffff;
+    width: 100%; /* Scale down to fit the container width */
+    height: auto; /* Allow the height to adjust proportionally */
+}
+
+.per-image{
+    text-align: center;
+    align-items: center;
+    max-width: 400px;
+    max-height: 400px;
+    border: 2px solid #ffffff;
+    width: 100%; /* Scale down to fit the container width */
+    height: auto; /* Allow the height to adjust proportionally */
 }
 
 .people-item {

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars - Planet Info</title>
     <?php
     include 'headerPage.html';
@@ -30,16 +31,16 @@ if (isset($_GET['id'])) {
     $planet = Planet::findById($id);
 
     ?>
-    <div class='container-fluid padding-above container-color' >
-        <div class='row py-2 justify-content-center'>
-            <div class='col-6 px-4'>
+    <div class='container-fluid padding-above container-color' style='width: 100% height: 100vh' >
+        <div class='row py-2 justify-content-center' style='width: 100% height: 100vh'>
+            <div class='col-3 px-4'>
                 <div class="info-container">
-                    <img height='300' src='<?php echo $planet->getImage(); ?>' alt='cast_image' class='info-image' /><br />
+                    <img height='300' src='<?php echo $planet->getImage(); ?>' alt='planet_image' class='plan-image' /><br />
                     <h2> <?php echo $planet->getName() ?> </h2>
                 </div>
             </div>
 
-            <div class='col-6 px-4 text-center '>
+            <div class='col-3 px-4 text-center '>
                 <h2> information: </h2>
                 <p> <?php echo 'Rotation: ' . $planet->getRotation(); ?> </p>
                 <p> <?php echo 'Orbit: ' . $planet->getOrbit(); ?> </p>
@@ -52,7 +53,7 @@ if (isset($_GET['id'])) {
             </div>
         </div>
     </div>
-    <div class='row- py-2 justify-content-center'>
+    <div class='row- py-2 justify-content-center' style='width: 100% height: 100vh'>
         <div class='col-12 px-4'>
             <?php
             try {

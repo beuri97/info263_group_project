@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars - Vehicle Info</title>
     <?php
     include 'headerPage.html';
@@ -32,9 +33,9 @@ $vehicle = Vehicle::findById($id);
 $manufacturer = Manufacturer::findById($vehicle->getManufacturerID());
 
 ?>
-<div class='container-fluid padding-above container-color' >
-    <div class='row py-2 justify-content-center'>
-        <div class='col-5 px-4'>
+<div class='container-fluid padding-above container-color' style='width: 100% height: 100vh' >
+    <div class='row py-2 justify-content-center' style='width: 100% height: 100vh'>
+        <div class='col-4 px-4'>
             <div class="info-container">
                 <img height='300' src='<?php echo $vehicle->getImage(); ?>' alt='vehicle_image' class='info-image' /><br />
                 <h2> <?php echo $vehicle->getName() ?> </h2>
@@ -44,8 +45,13 @@ $manufacturer = Manufacturer::findById($vehicle->getManufacturerID());
         <div class='col-3 px-4'>
             <div class="info-container">
                 <h2>Manufacturer: </h2>
-                <h4> <?php echo $manufacturer->getName(); ?> </h4>
-                <img height='200' src='<?php echo $manufacturer->getImg(); ?>' alt='manufacturer_image' class='info-image' /><br />
+                <?php if ($manufacturer) {?>
+                    <h4> <?php echo $manufacturer->getName(); ?> </h4>
+                    <img height='200' src='<?php echo $manufacturer->getImg(); ?>' alt='manufacturer_image' class='man-image' /><br />
+                <?php } else { ?>
+                    <h4> <?php echo "Unknown"; ?> </h4>
+                    <img src="img/noimage.png" alt='manufacturer_image' class='man-image' /><br />
+                <?php } ?>
             </div>
         </div>
 
@@ -64,7 +70,7 @@ $manufacturer = Manufacturer::findById($vehicle->getManufacturerID());
     </div>
 </div>
 
-<div class='row- py-2 justify-content-center'>
+<div class='row- py-2 justify-content-center' style='width: 100% height: 100vh'>
     <div class='col-12 px-4'>
         <?php
         try {

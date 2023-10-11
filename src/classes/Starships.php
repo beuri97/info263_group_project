@@ -11,7 +11,7 @@ class Starships
     protected $crew;
     protected $passengers;
     protected $cargoCapacity;
-    protected $conusumes;
+    protected $consumes;
     protected $hyperdriveRating;
     protected $MGLT;
     protected $classID;
@@ -29,14 +29,14 @@ class Starships
      * @param $crew
      * @param $passengers
      * @param $cargoCapacity
-     * @param $conusumes
+     * @param $consumes
      * @param $hyperdriveRating
      * @param $MGLTSpeed
      * @param $classID
      * @param $image
      */
     public function __construct($id, $name, $model, $cost, $length, $maxSpeed, $crew, $passengers, $cargoCapacity,
-                                $conusumes, $hyperdriveRating, $MGLT, $classID, $image, $manufacturerID, $starship_class)
+                                $consumes, $hyperdriveRating, $MGLT, $classID, $image, $manufacturerID, $starship_class)
     {
         $this->id = $id;
         $this->name = $name;
@@ -47,7 +47,7 @@ class Starships
         $this->crew = $crew;
         $this->passengers = $passengers;
         $this->cargoCapacity = $cargoCapacity;
-        $this->conusumes = $conusumes;
+        $this->consumes = $consumes;
         $this->hyperdriveRating = $hyperdriveRating;
         $this->MGLT = $MGLT;
         $this->classID = $classID;
@@ -68,18 +68,27 @@ class Starships
             $manufacturer = $open_review_s_db->query("SELECT * FROM starship_manufacturer WHERE starshipID = " . $id);
             $resultManufacturer = $manufacturer->fetch(PDO::FETCH_ASSOC);
 
-            $starshipClass = $open_review_s_db->query("SELECT * FROM starshipclass WHERE starshipID = " . $result['starshipclassID']);
+            $starshipClass = $open_review_s_db->query("SELECT * FROM starshipclass WHERE starshipclassID = " . $result['starshipclassID']);
             $resultStarshipClass = $starshipClass->fetch(PDO::FETCH_ASSOC);
 
             if (!$result) {
                 return null; // No matching record found
             }
-
             $img = explode('/revision', $result['image_url']);
-            return new Starships($result['starshipID'], $result['starship_name'], $result['starship_model'], $result['starship_cost_in_credits'],
-                $result['starship_length'], $result['starship_max_atmosphering_speed'], $result['starship_crew'], $result['starship_passengers'],
-                $result['starship_cargo_capacity'], $result['starship_consumables'], $result['starship_hyperdrive_rating'],
-                $result['starship_MGLT'], $result['starshipclassID'], $img[0], $resultManufacturer['$manufacturerID'], $resultStarshipClass['starship_class']);
+
+            if ($resultManufacturer){
+                return new Starships($result['starshipID'], $result['starship_name'], $result['starship_model'], $result['starship_cost_in_credits'],
+                    $result['starship_length'], $result['starship_max_atmosphering_speed'], $result['starship_crew'], $result['starship_passengers'],
+                    $result['starship_cargo_capacity'], $result['starship_consumables'], $result['starship_hyperdrive_rating'],
+                    $result['starship_MGLT'], $result['starshipclassID'], $img[0], $resultManufacturer['manufacturerID'], $resultStarshipClass['starship_class']);
+            } else {
+                return new Starships($result['starshipID'], $result['starship_name'], $result['starship_model'], $result['starship_cost_in_credits'],
+                    $result['starship_length'], $result['starship_max_atmosphering_speed'], $result['starship_crew'], $result['starship_passengers'],
+                    $result['starship_cargo_capacity'], $result['starship_consumables'], $result['starship_hyperdrive_rating'],
+                    $result['starship_MGLT'], $result['starshipclassID'], $img[0], 10, $resultStarshipClass['starship_class']);
+            }
+
+
 
         } catch (PDOException $e) {
             die($e->getMessage());
@@ -161,9 +170,9 @@ class Starships
     /**
      * @return mixed
      */
-    public function getConusumes()
+    public function getConsumes()
     {
-        return $this->conusumes;
+        return $this->consumes;
     }
 
     /**
@@ -185,18 +194,36 @@ class Starships
     /**
      * @return mixed
      */
-    public function getClass()
+    public function getImage()
     {
-        return $this->class;
+        return $this->image;
     }
 
     /**
      * @return mixed
      */
-    public function getImage()
+    public function getClassID()
     {
-        return $this->image;
+        return $this->classID;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getManufacturerID()
+    {
+        return $this->manufacturerID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStarshipClass()
+    {
+        return $this->starship_class;
+    }
+
+
 
 
 

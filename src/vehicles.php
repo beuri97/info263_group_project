@@ -37,7 +37,11 @@ $vehicles = $open_review_s_db->query("SELECT vehicleID, vehicle_name, image_url 
 while($row = $vehicles->fetch(PDO::FETCH_ASSOC)) {
     ?> <a href='vehicleInfo.php?id=<?php echo $row['vehicleID']; ?>' class="cast-item"> <?php
     $img = explode('/revision',$row['image_url']);
-    echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='vehicle_image'/><br />";
+    if ($img[0] != NULL){
+        echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
+    } else {
+        echo "<img class='cast-image' height='100' src='img/noimage.png' alt='film_image'/><br />";
+    }
     echo "<p>" . $row['vehicle_name'] . "</p>";
     echo '</a>';
 }

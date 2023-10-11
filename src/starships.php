@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars - Starships</title>
     <?php
     include 'headerPage.html';
@@ -35,9 +36,13 @@ try {
 echo '<div class="cast-container">';
 $starships = $open_review_s_db->query("SELECT starshipID, starship_name, image_url FROM starship");
 while($row = $starships->fetch(PDO::FETCH_ASSOC)) {
-    ?> <a href='starshipInfo.php?id=<?php echo $row['starshipID']; ?>' class="cast-item"> <?php
+    ?> <a href='starshipInfo.php?id=<?php echo $row['starshipID']; ?>'class="cast-item"> <?php
     $img = explode('/revision',$row['image_url']);
-    echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='starship_image'/><br />";
+    if ($img[0] != NULL){
+        echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
+    } else {
+        echo "<img class='cast-image' height='100' src='img/noimage.png' alt='film_image'/><br />";
+    }
     echo "<p>" . $row['starship_name'] . "</p>";
     echo '</a>';
 }

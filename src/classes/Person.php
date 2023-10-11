@@ -72,7 +72,11 @@ class Person
             $homeworld = $open_review_s_db->query("SELECT * FROM planet WHERE planetID = " . $planetId);
             $homeworldResult = $homeworld->fetch(PDO::FETCH_ASSOC);
             $img = explode('/revision', $homeworldResult['image_url']);
-            return $img[0];
+            if ($img[0] != NULL){
+                return $img[0];
+            } else {
+                return "img/noimage.png";
+            }
 
         } catch (PDOException $e) {
             die($e->getMessage());

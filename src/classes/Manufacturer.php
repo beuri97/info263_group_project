@@ -59,7 +59,11 @@ class Manufacturer
      */
     public function getImg()
     {
-        return $this->img;
+        if ($this->img){
+            return $this->img;
+        } else {
+            return "img/noimage.png";
+        }
     }
 
 
