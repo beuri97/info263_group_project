@@ -11,6 +11,9 @@
         return $db;
     }
 
+    function closeConnection(&$db) {
+        $db = null;
+    }
 
     function addFilm($title, $episode, $crawl, $director, $release, $url) {
 
@@ -27,16 +30,22 @@
         $stmt->execute();
 
         // film_producer relation need to be added automatically
-        $directorID = $db->query("SELECT producerID FROM producer WHERE producer_name = '$director'")->fetch(PDO::FETCH_ASSOC);
-        $id = NULL;
-        if($directorID == '' or $directorID == NULL) {
-            $id = ($db->query("SELECT max(producerID) as num from producer") ->fetch(PDO::FETCH_ASSOC)) + 1;
-            $db->query("INSERT INTO PRODUCER VALUES ('$id', '$directorID', NULL)");
+        $directorID = (int)($db->query("SELECT producerID FROM producer WHERE producer_name = '$director'")->fetch(PDO::FETCH_ASSOC));
+        if($directorID == 0) {
+            $directorID = $db->query("SELECT max(producerID) as num from producer")->fetch(PDO::FETCH_ASSOC);
+            $directorID = (int)($directorID['num'] + 1);
+            $db->query("INSERT INTO PRODUCER VALUES ('$directorID', '$director', NULL)");
         }
 
         // Add tuple of film_producer after create tuples in film
-        $db->query("INSERT INTO film_producer VALUES ('$id', '$number', NULL)");
+        $db->query("INSERT INTO film_producer VALUES ('$directorID', '$number', NULL)");
 
         $db = null;
+    }
+
+    function retrieveQuery(&$db, $query)
+    {
+        return $db->query($query);
+
     }
 ?>
