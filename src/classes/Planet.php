@@ -178,7 +178,12 @@ class Planet
      */
     public function getImage()
     {
-        return $this->image;
+        if ($this->image != NULL){
+            return $this->image;
+        } else {
+            return "img/noimage.png";
+        }
+
     }
 
 

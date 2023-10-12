@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Star Wars - Films</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars - People Info</title>
 
     <?php
     include 'headerPage.html';
@@ -32,24 +33,22 @@ if (isset($_GET['id'])) {
 
     $planetId = $person->getHomeWorldId();
 ?>
-<div class='container-fluid padding-above container-color' >
-    <div class='row py-2 justify-content-center'>
-            <div class='col-4 px-4'>
+<div class='container-fluid padding-above container-color' style='width: 100% height: 100vh' >
+    <div class='row py-2 justify-content-center' style='width: 100% height: 100vh'>
+            <div class='col-4 px-4' style='width: 100% height: 100vh'>
                 <div class="info-container">
-                    <img height='300' src='<?php echo $person->getImage(); ?>' alt='cast_image' class='info-image' /><br />
+                    <img height='300' src='<?php echo $person->getImage(); ?>' alt='cast_image' class='per-image' /><br />
                     <h2> <?php echo $person->getName() ?> </h2>
                 </div>
             </div>
-            <div class='col-4 px-4 text-center '>
+            <div class='col-4 px-4 text-center ' style='width: 100% height: 100vh'>
                 <h2> Home World:  </h2>
-                <div class="people-container">
-                    <a href='planetInfo.php?id=<?php echo $planetId; ?>' class='people-item'>
-                        <img height='100' src='<?php echo $person->getPlanetImage($planetId); ?>' alt='planet-image' /><br />
+                    <a href='planetInfo.php?id=<?php echo $planetId; ?>'>
+                        <img height='100' src='<?php echo $person->getPlanetImage($planetId); ?>' alt='planet' class='subplan-image'/><br />
                         <p> <?php echo $person->getHomeWorld(); ?> </p>
                     </a>
-                </div>
             </div>
-            <div class='col-4 px-4 text-center '>
+            <div class='col-4 px-4 text-center ' style='width: 100% height: 100vh'>
                 <h2> information: </h2>
                 <p> <?php echo 'Species: ' . $person->getSpecies(); ?> </p>
                 <p> <?php echo $person->getGender() . ', Weight: ' . $person->getMass() . ', born in ' . $person->getBirth(); ?> </p>
@@ -59,7 +58,7 @@ if (isset($_GET['id'])) {
             </div>
         </div>
     </div>
-    <div class='row- py-2 justify-content-center'>
+    <div class='row- py-2 justify-content-center' style='width: 100% height: 100vh'>
         <div class='col-12 px-4'>
             <h4> Movies:  </h4>
             <?php
