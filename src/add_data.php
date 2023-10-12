@@ -7,7 +7,7 @@
     <?php
 
     include 'headerPage.html';
-    require_once 'database.php';
+    require_once 'resources/database.php';
 
     ?>
     <!-- Page Style -->
