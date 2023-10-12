@@ -1,8 +1,6 @@
 # macOS
 .DS_store
-
-
-
 .idea
+*.db
 
 
