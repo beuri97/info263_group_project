@@ -127,14 +127,16 @@
 
 <?php
     // Initialise films attributes' values
-    $title = $_POST['title'];
-    $episode = (int)$_POST['episode'];
-    $director = $_POST['director'];
-    $release = date("Y-m-d", strtotime($_POST['release_date']));
-    $crawl = $_POST['crawl'];
-    $confirm = $_POST['add'];
+    if(isset($_POST['add'], $_POST['title'], $_POST['episode'], $_POST['director'], $_POST['release_date'], $_POST['crawl'], $_POST['add']))
+    {
+        $title = $_POST['title'];
+        $episode = (int)$_POST['episode'];
+        $director = $_POST['director'];
+        $release = date("Y-m-d", strtotime($_POST['release_date']));
+        $crawl = $_POST['crawl'];
+    }
 
-    if(isset($confirm, $title, $episode, $director, $release, $crawl) and $title != '' and $episode != '' and $director != ''
+    if(isset($_POST['add'], $title, $episode, $director, $release, $crawl) and $title != '' and $episode != '' and $director != ''
         and $release != '' and $crawl != '') {
         $url = ($_POST['url'] == '') ? NULL : $_POST['url'];
         addFilm($title, $episode, $crawl, $director, $release, $url);
