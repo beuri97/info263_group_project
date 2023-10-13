@@ -1,29 +1,31 @@
 <?php
+$errors = [];
 
-if(empty($_POST["name"])) {
-    die("Name is required");
-}
-
-if( ! filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-    die("Valid email is required");
-}
-if (strlen($_POST["password"]) < 8) {
-    die("Password must be at least 8 characters");
-}
-if ( ! preg_match("/[a-z]/i", $_POST["password"])) {
-    die("Password must contain at least one letter");
+if (empty($_POST["name"])) {
+    $errors[] = "Name is required";
 }
 
-if ( ! preg_match("/[0-9]/i", $_POST["password"])) {
-    die("Password must contain at least one number");
+if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    $errors[] = "Valid email is required";
 }
+
+if (strlen($_POST["password"]) < 5) {
+    $errors[] = "Password must be at least 5 characters";
+}
+
 if ($_POST["password"] !== $_POST["password_confirmation"]) {
-    die("Passwords must match");
+    $errors[] = "Passwords must match";
 }
 
-$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+if (empty($errors)) {
+    require "resources/database.php";
+    $password_hash = ($_POST["password"]);
+    addUser($_POST['name'], $_POST['email'], $password_hash);
+    require "signup-success.html";
+}
 
-require "resources/database.php";
-
-addUser($_POST['name'], $_POST["email"], $password_hash);
-
+// Handle errors
+if (!empty($errors)) {
+    foreach ($errors as $error)
+    echo $error . "\n";
+}
