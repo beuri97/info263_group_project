@@ -43,26 +43,16 @@
         $db = null;
     }
 
-    function addUser($name, $email, $password) {
+    function addUser($name, $email, $password): void
+    {
 
         $db = openConnection();
 
         // insert basic user information
-        $query = "INSERT INTO registered_users(name, email, password_hash)
+        $query = "INSERT INTO registered_users(username, email, password_hash)
                         values('$name', '$email', '$password')";
         $stmt = $db->prepare($query);
         $stmt->execute();
-
-        // film_producer relation need to be added automatically
-        $directorID = (int)($db->query("SELECT producerID FROM producer WHERE producer_name = '$director'")->fetch(PDO::FETCH_ASSOC));
-        if($directorID == 0) {
-            $directorID = $db->query("SELECT max(producerID) as num from producer")->fetch(PDO::FETCH_ASSOC);
-            $directorID = (int)($directorID['num'] + 1);
-            $db->query("INSERT INTO PRODUCER VALUES ('$directorID', '$director', NULL)");
-        }
-
-        // Add tuple of film_producer after create tuples in film
-        $db->query("INSERT INTO film_producer VALUES ('$directorID', '$number', NULL)");
 
         $db = null;
     }

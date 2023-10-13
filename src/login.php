@@ -1,24 +1,3 @@
-<?php
-
-$is_invalid = false;
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    $mysqli = require __DIR__ . "/database.php";
-    $sql = sprintf("SELECT * FROM user
-            where email = '%s'",
-        $mysqli->real_escape_string($_POST["email"]));
-    $result = $mysqli->query($sql);
-    $user = $result->fetch_assoc();
-
-    if ($user) {
-        if (password_verify($_POST["password"], $user["password_hash"])) {
-            die("Login Successful");
-        }
-    }
-    $is_invalid = true;
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
@@ -34,22 +13,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+
+
 <h1>Login</h1> <br>
+
+<form method="post">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email">
+    <label for="password">Password</label>
+    <input type="password" name="password" id="pwd">
+
+    <button>Log in</button>
+</form>
+
+<?php
+require 'resources/database.php';
+$is_invalid = false;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if(isset($_POST['email'])){
+        try {
+        $db_email = $_POST['email'];
+        $db = openConnection();
+        $query = "SELECT email, password_hash FROM registered_users WHERE email = '$db_email'";
+        $stmt = $db->query($query);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user) {
+            if ($_POST["password"] == $user["password_hash"]) {
+                die("Login Successful"); //switch to homepage, in the corner of the nav bar put the user name.
+            }
+        }
+        $is_invalid = true;
+        } catch (PDOException $e) {
+            // Handle any database-related errors here, e.g., log the error or display an error message.
+            echo "Database Error: " . $e->getMessage();
+        }
+    }
+}
+?>
 
 <?php if ($is_invalid): ?>
     <em>Invalid Login</em>
 <?php endif; ?>
-
-<form method="post">
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email"
-           value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
-
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password">
-
-    <button>Log in</button>
-</form>
 
 </body>
 </html>
