@@ -21,7 +21,7 @@ if (empty($errors)) {
     require "resources/database.php";
     $password_hash = ($_POST["password"]);
     addUser($_POST['name'], $_POST['email'], $password_hash);
-    require "signup-success.html";
+    require "signup-success.php";
 }
 
 // Handle errors

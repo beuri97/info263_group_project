@@ -35,7 +35,7 @@ try {
 echo '<div class="cast-container">';
 $cast = $open_review_s_db->query("SELECT peopleID, people_name, image_url FROM people");
 while($row = $cast->fetch(PDO::FETCH_ASSOC)) {
-    ?> <a href='peopleinfo.php?id=<?php echo $row['peopleID']; ?>' class="cast-item"> <?php
+    ?> <a href='peopleInfo.php?id=<?php echo $row['peopleID']; ?>' class="cast-item"> <?php
     $img = explode('/revision',$row['image_url']);
     if ($img[0] != NULL){
         echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
