@@ -49,6 +49,37 @@ class Planet
         $this->image = $image;
     }
 
+    public static function searchPlanet($query)
+    {
+        try {
+            $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
+            $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            //Search for planets:
+            $queryParam = $query . '%'; // Add a '%' to match names starting with the query
+            $planets = $open_review_s_db->prepare("SELECT * FROM planet WHERE planet_name LIKE :query");
+            $planets->bindParam(':query', $queryParam, PDO::PARAM_STR);
+            $planets->execute();
+            //all results list
+            $results = [];
+
+            while ($row = $planets->fetch(PDO::FETCH_ASSOC)) {
+                // Create Planet objects and populate them with data
+                $img = explode('/revision', $row['image_url']);
+                $planet = new Planet($row['planetID'], $row['planet_name'], $row['planet_rotation_period'], $row['planet_orbital_period'],
+                    $row['planet_diameter'], $row['planet_gravity'], $row['planet_surface_water'], $row['planet_population'],
+                    null, null, null, null, $img[0]);
+                $results[] = $planet;
+            }
+
+            $open_review_s_db = null;
+            return $results;
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
     public static function findById($id) {
         try {
             $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
@@ -68,6 +99,7 @@ class Planet
             }
 
             $img = explode('/revision', $result['image_url']);
+            $open_review_s_db = null;
             return new Planet($result['planetID'], $result['planet_name'], $result['planet_rotation_period'], $result['planet_orbital_period'],
                 $result['planet_diameter'], $result['planet_gravity'], $result['planet_surface_water'], $result['planet_population'],
                 $climateResult['planetclimateID'], $climateResult['planet_climate'], $terrainResult['planetterrainID'], $terrainResult['planet_terrain'], $img[0]);

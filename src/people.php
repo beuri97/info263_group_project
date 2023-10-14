@@ -46,7 +46,7 @@ while($row = $cast->fetch(PDO::FETCH_ASSOC)) {
     echo '</a>';
 }
 echo '</div>'; // Close the cast-container div
-
+    $open_review_s_db = null;
 ?>
 
 </body>

@@ -48,6 +48,7 @@ if (!isset($_GET["id"])) {
             <?php
         }
         echo '</div>';
+        $open_review_s_db = null;
     } catch (PDOException $e) {
         die($e->getMessage());
     }
@@ -92,7 +93,7 @@ if (!isset($_GET["id"])) {
         <?php
         echo "</div>";
         echo "</div>";
-
+        $open_review_s_db = null;
     } catch (PDOException $e) {
         die($e->getMessage());
     }
