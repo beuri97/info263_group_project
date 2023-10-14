@@ -57,7 +57,7 @@ class Person
                     $row['people_gender'], $row['people_homeworld_id'], null, null, $img[0]);
                 $results[] = $person;
             }
-
+            $open_review_s_db = null;
             return $results;
 
         } catch (PDOException $e) {
@@ -82,6 +82,8 @@ class Person
 
             $homeworld = $open_review_s_db->query("SELECT * FROM planet WHERE planetID = " . $result['people_homeworld_id']);
             $homeworldResult = $homeworld->fetch(PDO::FETCH_ASSOC);
+
+            $open_review_s_db = null;
 
             if (!$speciesResult) {
                 $img = explode('/revision', $result['image_url']);

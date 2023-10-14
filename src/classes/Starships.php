@@ -56,6 +56,39 @@ class Starships
         $this->starship_class = $starship_class;
     }
 
+    public static function searchStarship($query)
+    {
+        try {
+            $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
+            $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            //Search for starships:
+            $queryParam = $query . '%'; // Add a '%' to match names starting with the query
+            $starships = $open_review_s_db->prepare("SELECT * FROM starship WHERE starship_name LIKE :query");
+            $starships->bindParam(':query', $queryParam, PDO::PARAM_STR);
+            $starships->execute();
+            //all results list
+            $results = [];
+
+            while ($row = $starships->fetch(PDO::FETCH_ASSOC)) {
+                // Create Starship objects and populate them with data
+                $img = explode('/revision', $row['image_url']);
+                $starship = new Starships($row['starshipID'], $row['starship_name'], $row['starship_model'], $row['starship_cost_in_credits'],
+                    $row['starship_length'], $row['starship_max_atmosphering_speed'], $row['starship_crew'], $row['starship_passengers'],
+                    $row['starship_cargo_capacity'], $row['starship_consumables'], $row['starship_hyperdrive_rating'],
+                    $row['starship_MGLT'], $row['starshipclassID'], $img[0], null, null);
+                $results[] = $starship;
+            }
+
+            $open_review_s_db = null;
+            return $results;
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+
 
     public static function findById($id) {
         try {
@@ -75,7 +108,7 @@ class Starships
                 return null; // No matching record found
             }
             $img = explode('/revision', $result['image_url']);
-
+            $open_review_s_db = null;
             if ($resultManufacturer){
                 return new Starships($result['starshipID'], $result['starship_name'], $result['starship_model'], $result['starship_cost_in_credits'],
                     $result['starship_length'], $result['starship_max_atmosphering_speed'], $result['starship_crew'], $result['starship_passengers'],

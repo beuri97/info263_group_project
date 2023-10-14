@@ -17,39 +17,41 @@
     <link rel="stylesheet" href="css/filmsStyle.css">
 
 </head>
-<body>
-
 <?php
 if (isset($_POST['query'])) {
     echo "<h3 style='text-align: center; padding-top: 40px' > SEARCH FOR: " . $_POST['query'] . "</h3>";
 }
     ?>
 
-<section class="container">
+<section class="container" >
     <form action="search.php" method="post" class="search-form" style="align-content: center">
         <div class="input-group" style="max-width: 750px; margin: 0 auto; padding-top: 20px">
             <input type="text" class="form-control" name="query" placeholder="Search the force">
         </div>
-        <div class="input-group" style="max-width: 100px; margin: 0 auto; align-content: center">
-            <button class="btn btn-primary" type="submit" style="margin-top: 5px;">Search</button>
+        <div class="input-group" style="padding-bottom: 20px; max-width: 100px; margin: 0 auto; align-content: center">
+            <button class="btn btn-primary" type="submit" style="margin-top: 5px;" >Search</button>
         </div>
     </form>
 </section>
 <?php
 // Require classes
 require 'classes/Person.php';
+require 'classes/Planet.php';
+require 'classes/Vehicle.php';
+require 'classes/Starships.php';
 
 if (isset($_POST['query'])) {
     $search_query = $_POST['query'];
 
-    // Call a method in your PHP class to search for results
+    // Call person in PHP class to search for results
     $personResults = Person::searchPeople($search_query);
     // Display the person results
+    echo '<h2 style="padding: 20px">People:</h2>';
+    echo '<div class="cast-container" style="justify-content: center; width: 100%; background: #333333" >';
     if (empty($personResults)) {
-        echo "No results found.";
+        echo "<h3 style='text-align: center;' >" . "No results found" . "</h3>";
     } else {
-        echo '<h2>People:</h2>';
-        echo '<div class="cast-container" style="justify-content: center;">';
+
         foreach ($personResults as $result) { ?>
             <a href='peopleInfo.php?id=<?php echo $result->getId(); ?>' class="cast-item">
                 <img class='cast-image' height='150' src='<?php echo $result->getImage(); ?>' alt='(Missing) Image Of:' /><br />
@@ -57,8 +59,62 @@ if (isset($_POST['query'])) {
             </a>
             <?php
         }
-        echo '</div>'; // Close the cast-container div
     }
+    echo '</div>'; // Close the cast-container div
+
+    // Call planet in PHP class to search for results
+    $planetResults = Planet::searchPlanet($search_query);
+    // Display the planet results
+    echo '<h2 style="padding: 20px">Planets:</h2>';
+    echo '<div class="cast-container" style="justify-content: center; width: 100%; background: #333333">';
+    if (empty($planetResults)) {
+        echo "<h3 style='text-align: center;' >" . "No results found" . "</h3>";
+    } else {
+        foreach ($planetResults as $result) { ?>
+            <a href='planetInfo.php?id=<?php echo $result->getId(); ?>' class="cast-item">
+                <img class='cast-image' height='150' src='<?php echo $result->getImage(); ?>' alt='(Missing) Image Of:' /><br />
+                <p> <?php echo $result->getName() ?> </p>
+            </a>
+            <?php
+        }
+    }
+    echo '</div>'; // Close the vehicle-container div
+
+    // Call vehicle in PHP class to search for results
+    $vehicleResults = Vehicle::searchVehicle($search_query);
+    // Display the vehicle results
+    echo '<h2 style="padding: 20px">Vehicles:</h2>';
+    echo '<div class="cast-container" style="justify-content: center; width: 100%; background: #333333">';
+    if (empty($vehicleResults)) {
+        echo "<h3 style='text-align: center;' >" . "No results found" . "</h3>";
+    } else {
+        foreach ($vehicleResults as $result) { ?>
+            <a href='vehicleInfo.php?id=<?php echo $result->getId(); ?>' class="cast-item">
+                <img class='cast-image' height='150' src='<?php echo $result->getImage(); ?>' alt='(Missing) Image Of:' /><br />
+                <p> <?php echo $result->getName() ?> </p>
+            </a>
+            <?php
+        }
+    }
+    echo '</div>'; // Close the vehicle-container div
+
+    // Call starship in PHP class to search for results
+    $starshipResults = Starships::searchStarship($search_query);
+    // Display the starship results
+    echo '<h2 style="padding: 20px">Starships:</h2>';
+    echo '<div class="cast-container" style="justify-content: center; width: 100%; background: #333333">';
+    if (empty($starshipResults)) {
+        echo "<h3 style='text-align: center;' >" . "No results found" . "</h3>";
+    } else {
+        foreach ($starshipResults as $result) { ?>
+            <a href='starshipInfo.php?id=<?php echo $result->getId(); ?>' class="cast-item">
+                <img class='cast-image' height='150' src='<?php echo $result->getImage(); ?>' alt='(Missing) Image Of:' /><br />
+                <p> <?php echo $result->getName() ?> </p>
+            </a>
+            <?php
+        }
+    }
+    echo '</div>'; // Close the starship-container div
 }
 ?>
 

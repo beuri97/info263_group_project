@@ -52,6 +52,38 @@ class Vehicle
     }
 
 
+    public static function searchVehicle($query)
+    {
+        try {
+            $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
+            $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            //Search for vehicles:
+            $queryParam = $query . '%'; // Add a '%' to match names starting with the query
+            $vehicles = $open_review_s_db->prepare("SELECT * FROM vehicle WHERE vehicle_name LIKE :query");
+            $vehicles->bindParam(':query', $queryParam, PDO::PARAM_STR);
+            $vehicles->execute();
+            //all results list
+            $results = [];
+
+            while ($row = $vehicles->fetch(PDO::FETCH_ASSOC)) {
+                // Create Vehicle objects and populate them with data
+                $img = explode('/revision', $row['image_url']);
+                $vehicle = new Vehicle($row['vehicleID'], $row['vehicle_name'], $row['vehicle_model'], $row['vehicle_cost_in_credits'],
+                    $row['vehicle_length'], $row['vehicle_max_atmosphering_speed'], $row['vehicle_crew'], $row['vehicle_passengers'],
+                    $row['vehicle_cargo_capacity'], $row['vehicle_consumables'], $row['vehicleclassID'],
+                    $img[0], null, null);
+                $results[] = $vehicle;
+            }
+
+            $open_review_s_db = null;
+            return $results;
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
     public static function findById($id) {
         try {
             $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
@@ -71,6 +103,7 @@ class Vehicle
             }
 
             $img = explode('/revision', $result['image_url']);
+            $open_review_s_db = null;
             return new Vehicle($result['vehicleID'], $result['vehicle_name'], $result['vehicle_model'], $result['vehicle_cost_in_credits'],
                 $result['vehicle_length'], $result['vehicle_max_atmosphering_speed'], $result['vehicle_crew'], $result['vehicle_passengers'],
                 $result['vehicle_cargo_capacity'], $result['vehicle_consumables'], $result['vehicleclassID'],
