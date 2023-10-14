@@ -18,30 +18,81 @@
 
 </head>
 <body>
-<h1>Signup</h1>
+<h1 style="text-align: center; padding-bottom: 30px; padding-top: 30px">Sign up</h1>
+<div style="display: flex; justify-content: center;">
+    <form method="post" novalidate style="text-align: center; width: 200px">
+        <div style="padding-bottom: 20px">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
 
-<form action="process-signup.php" method="post" novalidate>
-  <div>
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name">
-  </div>
+        <div style="padding-bottom: 20px">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
 
-  <div>
-    <label for="email">email</label>
-    <input type="email" id="email" name="email">
-  </div>
+        <div style="padding-bottom: 20px">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
 
-  <div>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password">
-  </div>
+        <div style="padding-bottom: 20px">
+            <label for="password_confirmation">Repeat Password:</label>
+            <input type="password" id="password_confirmation" name="password_confirmation">
+        </div>
 
-  <div>
-    <label for="password_confirmation">Repeat Password</label>
-    <input type="password" id="password_confirmation" name="password_confirmation">
-  </div>
+        <button>Sign Up</button>
+    </form>
+</div>
 
-  <button>Sign Up</button>
-</form>
+<?php
+$errors = [];
+
+if (isset($_POST["email"]) and isset($_POST["name"]) and isset($_POST["password"]) and isset($_POST["password_confirmation"])) {
+    if (empty($_POST["name"])) {
+        $errors[] = "Name is required";
+    }
+
+    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Valid email is required";
+    }
+
+    if (strlen($_POST["password"]) < 5) {
+        $errors[] = "Password must be at least 5 characters";
+    }
+
+    if ($_POST["password"] !== $_POST["password_confirmation"]) {
+        $errors[] = "Passwords must match";
+    }
+
+    if (!preg_match('/[0-9]/', $_POST["password"])) {
+        $errors[] = "Password must contain a number";
+    }
+
+    if (empty($errors)) {
+        require "resources/database.php";
+        $emailError = uniqueEmail($_POST["email"]);
+        if ($emailError != ''){
+            echo '<p style="text-align: center; padding-top: 20px; color: red">' . $emailError . "\n" . '</p>';
+            echo '<p style="text-align: center; padding: 20px">' . "Try Again" . "\n" . '</p>';
+        } else {
+            $password_hash = password_hash($_POST["password"], PASSWORD_BCRYPT);
+            addUser($_POST['name'], $_POST['email'], $password_hash);
+            echo '<p style="text-align: center; padding: 20px">' . "SUCCESS" . "\n" . '</p>';
+            echo '<meta http-equiv="refresh" content="2;url=signup-success.php">';
+            exit();
+        }
+    }
+
+    // Handle errors
+    if (!empty($errors)) {
+        foreach ($errors as $error)
+        {
+            echo '<p style="text-align: center; padding-top: 20px; color: red">' . $error . "\n" . '</p>';
+        }
+        echo '<p style="text-align: center; padding: 20px">' . "Try Again" . "\n" . '</p>';
+    }
+}
+?>
 </body>
 </html>
