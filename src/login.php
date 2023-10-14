@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $db = openConnection();
         $query = "SELECT email, password_hash FROM registered_users WHERE email = '$db_email'";
         $stmt = $db->query($query);
-        $user = $stmt->fetch(PDO::FET CH_ASSOC);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user) {
             if ($_POST["password"] == $user["password_hash"]) {
                 die("Login Successful"); //switch to homepage, in the corner of the nav bar put the user name.

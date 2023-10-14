@@ -52,14 +52,16 @@
 <div style="text-align: center; padding: 50px; background: #2e2d2f; color: yellow">
     <img src="img/yoda.jpeg" width="500" alt="Do. Or do not. There is no try."/>
     <h3>Yoda: "Your path you must decide."</h3>
-    <form action="search.php" method="get" class="search-form" style="align-content: center">
-        <div class="input-group" style="max-width: 750px; margin: 0 auto;">
-            <input type="text" class="form-control" name="query" placeholder="Search the force">
-        </div>
-        <div class="input-group" style="max-width: 100px; margin: 0 auto; align-content: center">
-            <button class="btn btn-primary" type="submit" style="margin-top: 5px;">Search</button>
-        </div>
-    </form>
+    <section class="container">
+        <form action="search.php" method="post" class="search-form" style="align-content: center">
+            <div class="input-group" style="max-width: 750px; margin: 0 auto; padding-top: 20px">
+                <input type="text" class="form-control" name="query" placeholder="Search the force">
+            </div>
+            <div class="input-group" style="max-width: 100px; margin: 0 auto; align-content: center">
+                <button class="btn btn-primary" type="submit" style="margin-top: 5px;">Search</button>
+            </div>
+        </form>
+    </section>
 </div>
 
 <!-- Page Style -->
@@ -69,10 +71,11 @@
 <link href="https://fonts.cdnfonts.com/css/sf-distant-galaxy" rel="stylesheet">
 <link rel="stylesheet" href="css/filmsStyle.css">
 
+<!-- Slide shows for page types -->
 <div class='container' >
     <div class='row py-2 justify-content-center'>
         <b style="text-align:center; font-size: xx-large">EXPLORE:</b>
-        <section class="hero">
+        <section class="hero" style="padding: 40px;">
             <div class="hero-content">
                 <h2>Films</h2>
                 <div id="filmCarousel" class="carousel slide" data-ride="carousel">
@@ -119,10 +122,9 @@
         </section>
     </div>
 
-
-    <div class='row py-2 justify-content-center' >
+    <div class='row py-2 justify-content-center'>
         <div class="col-5">
-            <section class="hero">
+            <section class="hero" style="padding: 10px; background: #333333;">
                 <div class="hero-content">
                     <div class="container">
                         <h2>People</h2>
@@ -176,7 +178,7 @@
         </div>
 
         <div class="col-5">
-            <section class="hero">
+            <section class="hero" style="padding: 10px; background: #333333;">
                 <div class="hero-content">
                     <div class="container">
                         <h2>Planets</h2>
@@ -231,7 +233,7 @@
 
     <div class='row py-2 justify-content-center' >
         <div class="col-5">
-            <section class="hero">
+            <section class="hero" style="padding: 10px; background: #333333;">
                 <div class="hero-content">
                     <div class="container">
                         <h2>Vehicles</h2>
@@ -284,7 +286,7 @@
         </div>
 
         <div class="col-5">
-            <section class="hero">
+            <section class="hero" style="padding: 10px; background: #333333;">
                 <div class="hero-content">
                     <div class="container">
                         <h2>Starships</h2>
