@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - Star Wars - INFO263</title>
+
+    <?php
+    include 'headerPage.html';
+    ?>
+
     <script src="js/script.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'/>
     <!-- CSS libraries -->

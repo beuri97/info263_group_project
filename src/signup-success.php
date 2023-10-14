@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <?php
+    include 'headerPage.html';
+    ?>
+
   <title>Signup</title>
   <meta charset="UTF-8">
   <title>Star Wars - INFO263</title>
