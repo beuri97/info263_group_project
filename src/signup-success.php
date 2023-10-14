@@ -19,10 +19,11 @@
 </head>
 <body>
 
-<h1>Signup</h1>
+<h1 style="text-align: center">Signup</h1>
 
-<p>Signup successful.
-  You can now <a href="login.php">log in</a>.</p>
+<p style="text-align: center">Signup successful.
+  You can now: </p>
+<a style="text-align: center; align-content: center; display: flex; justify-content: center;" href="login.php"><button>Log in</button></a>
 
 </body>
 </html>

@@ -57,6 +57,24 @@
         $db = null;
     }
 
+    function uniqueEmail($email): string
+    {
+
+        $db = openConnection();
+
+        // check if other query exists
+        $query = "SELECT count(*) as num FROM registered_users WHERE email = '$email'";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user['num'] > 0){
+            return "Email in use, try logging in";
+        } else {
+            return '';
+        }
+        $db = null;
+    }
+
     function retrieveQuery(&$db, $query)
     {
         return $db->query($query);

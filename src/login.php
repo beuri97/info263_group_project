@@ -6,6 +6,8 @@
     <title>Login - Star Wars - INFO263</title>
 
     <?php
+    session_start(); // Start the session
+    $_SESSION['username'] = null;
     include 'headerPage.html';
     ?>
 
@@ -20,16 +22,22 @@
 <body>
 
 
-<h1>Login</h1> <br>
+<h1 style="text-align: center; padding-bottom: 30px; padding-top: 30px">Log In</h1>
+<div style="display: flex; justify-content: center;">
+    <form method="post" style="text-align: center; width: 200px">
+        <div style="padding-bottom: 20px">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+        </div>
 
-<form method="post">
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email">
-    <label for="password">Password</label>
-    <input type="password" name="password" id="pwd">
+        <div style="padding-bottom: 20px">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="pwd">
+        </div>
 
-    <button>Log in</button>
-</form>
+        <button>Log in</button>
+    </form>
+</div>
 
 <?php
 require 'resources/database.php';
@@ -40,15 +48,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         try {
         $db_email = $_POST['email'];
         $db = openConnection();
-        $query = "SELECT email, password_hash FROM registered_users WHERE email = '$db_email'";
+        $query = "SELECT email, username, password_hash FROM registered_users WHERE email = '$db_email'";
         $stmt = $db->query($query);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user) {
-            if ($_POST["password"] == $user["password_hash"]) {
-                die("Login Successful"); //switch to homepage, in the corner of the nav bar put the user name.
+            if (password_verify($_POST['password'], $user['password_hash'])) {
+                echo '<em>Successful Login</em>';
+                $_SESSION['username'] = $user['username']; // Store the username in a session variable
+                echo '<meta http-equiv="refresh" content="2;url=index.php">';
+            } else {
+                $is_invalid = true;
             }
+        } else {
+            $is_invalid = true;
         }
-        $is_invalid = true;
         } catch (PDOException $e) {
             // Handle any database-related errors here, e.g., log the error or display an error message.
             echo "Database Error: " . $e->getMessage();
@@ -58,7 +71,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <?php if ($is_invalid): ?>
-    <em>Invalid Login</em>
+<div style="display: flex; justify-content: center; padding-top: 20px">
+    <em style="text-align: center; align-content: center;";>Invalid Login</em>
+</div>
 <?php endif; ?>
 
 </body>
