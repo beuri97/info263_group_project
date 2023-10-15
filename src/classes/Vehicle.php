@@ -51,6 +51,23 @@ class Vehicle
         $this->vehicle_class = $vehicle_class;
     }
 
+    public static function vehicleCount()
+    {
+        try {
+            $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
+            $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            //get count of vehicles:
+            $vehicles = $open_review_s_db->query("SELECT count(*) as num FROM vehicle");
+            $result = $vehicles->fetch(PDO::FETCH_ASSOC);
+            $open_review_s_db = null;
+            return $result['num'];
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     public static function searchVehicle($query)
     {
@@ -92,15 +109,15 @@ class Vehicle
             $vehicle = $open_review_s_db->query("SELECT * FROM vehicle WHERE vehicleID = " . $id);
             $result = $vehicle->fetch(PDO::FETCH_ASSOC);
 
+            if (!$result) {
+                return null; // No matching record found
+            }
+
             $manufacturer = $open_review_s_db->query("SELECT * FROM vehicle_manufacturer WHERE vehicleID = " . $id);
             $resultManufacturer = $manufacturer->fetch(PDO::FETCH_ASSOC);
 
             $vehicleClass = $open_review_s_db->query("SELECT * FROM vehicleclass WHERE vehicleclassID = " . $result['vehicleclassID']);
             $resultVehicleClass = $vehicleClass->fetch(PDO::FETCH_ASSOC);
-
-            if (!$result) {
-                return null; // No matching record found
-            }
 
             $img = explode('/revision', $result['image_url']);
             $open_review_s_db = null;

@@ -51,7 +51,7 @@ if (isset($_GET['id'])) {
             <div class='col-4 px-4 text-center ' style='width: 100% height: 100vh'>
                 <h2> information: </h2>
                 <p> <?php echo 'Species: ' . $person->getSpecies(); ?> </p>
-                <p> <?php echo $person->getGender() . ', Weight: ' . $person->getMass() . ', born in ' . $person->getBirth(); ?> </p>
+                <p> <?php echo $person->getGender() . ', Weight: ' . $person->getMass() . 'Kg, born in ' . $person->getBirth(); ?> </p>
                 <p> <?php echo 'Hair Color: ' . $person->getHairColor(); ?> </p>
                 <p> <?php echo 'Skin Color: ' . $person->getSkinColor(); ?> </p>
                 <p> <?php echo 'Eye Color: ' . $person->getEyeColor(); ?> </p>
