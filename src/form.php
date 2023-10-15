@@ -124,14 +124,61 @@
 <br>
 
 <script>
+    var people = [];
+    var planet = [];
+    var vehicle = [];
+    var starShip = [];
+
+    function arrayHandling(name, id, add) {
+
+        var index = -1;
+        switch (name) {
+            case "people":
+                if(add) {
+                    people.push(id);
+                } else {
+                    index = people.indexOf(id);
+                    people.splice(index);
+                }
+                break;
+            case "planet":
+                if(add) {
+                    planet.push(id);
+                } else {
+                    index = planet.indexOf(id);
+                    planet.splice(index);
+                }
+                break;
+            case "vehicle":
+                if(add) {
+                    vehicle.push(id);
+                } else {
+                    index = vehicle.indexOf(id);
+                    vehicle.splice(index);
+                }
+                break;
+            case "starship":
+                if(add) {
+                    starShip.push(id);
+                } else {
+                    index = starShip.indexOf(id);
+                    starShip.splice(index);
+                }
+                break;
+
+        }
+    }
+
     function selected(element) {
         var currentColor = getComputedStyle(element).background;
         console.log(currentColor);
         var getDataType = element.id.split("-");
         if(currentColor === "rgb(16, 11, 11)") {
             element.style.background = "#f1fc88";
+            arrayHandling(getDataType[0], getDataType[1], true);
         } else {
             element.style.background = "#100b0b";
+            arrayHandling(getDataType[0], getDataType[1], false);
         }
     }
 </script>
