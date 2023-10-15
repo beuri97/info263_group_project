@@ -170,7 +170,7 @@
     }
 
     function selected(element) {
-        var currentColor = getComputedStyle(element).background;
+        var currentColor = getComputedStyle(element).backgroundColor;
         console.log(currentColor);
         var getDataType = element.id.split("-");
         if(currentColor === "rgb(16, 11, 11)") {
