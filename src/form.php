@@ -76,7 +76,7 @@
 <h2>Add Film</h2>
 <br>
 <br>
-<form action="form.php" method="post">
+<form action="add_data.php" method="post">
     <h2 class="subtitle">FILM INFO</h2>
     <div id = "Add_data_film">
         <table class="center">
@@ -183,7 +183,7 @@
     }
 
     function process() {
-        let data = [people, planet, vehicle, starShip];
+        var data = [people, planet, vehicle, starShip];
 
         var toSend = JSON.stringify(data);
 
@@ -191,6 +191,7 @@
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "add_data.php");
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
         xhr.send(toSend);
 
 
