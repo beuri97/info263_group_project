@@ -119,7 +119,7 @@
     <div id="add" class="cast-container">
         <?php getData("SELECT starshipID, starship_name, image_url FROM STARSHIP", "starship");?>
     </div>
-    <input type="submit" id="submit" name="add" value="Add" style="margin-left: 15%">
+    <input type="submit" id="submit" name="add" value="Add" style="margin-left: 15%" onclick="process()">
 </form>
 <br>
 
@@ -181,6 +181,21 @@
             arrayHandling(getDataType[0], getDataType[1], false);
         }
     }
+
+    function process() {
+        let data = [people, planet, vehicle, starShip];
+
+        var toSend = JSON.stringify(data);
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "add_data.php");
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(toSend);
+
+
+
+    }
 </script>
 
 
@@ -198,7 +213,7 @@ if(isset($_POST['add'], $_POST['title'], $_POST['episode'], $_POST['director'], 
 if(isset($_POST['add'], $title, $episode, $director, $release, $crawl) and $title != '' and $episode != '' and $director != ''
     and $release != '' and $crawl != '') {
     $url = ($_POST['url'] == '') ? NULL : $_POST['url'];
-    addFilm($title, $episode, $crawl, $director, $release, $url);
+    // addFilm($title, $episode, $crawl, $director, $release, $url);
 }
 
 function getData($query, $name) {
