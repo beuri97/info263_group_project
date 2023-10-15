@@ -79,8 +79,8 @@
         <ul>
           <div style="text-align: center;">
             <li><b id="user-name"></b></li>
-            <li><a href="signup.php">Sign Up</a></li>
-            <li><a href="login.php">Login</a></li>
+            <li><a id="sign-up" href="signup.php">Sign Up</a></li>
+            <li><a id="log-in" href="login.php">Login</a></li>
             <li><a href="search.php">Search</a></li>
           </div>
 
@@ -94,9 +94,11 @@
             .then(response => response.json())
             .then(data => {
               const username = data.username;
-              if (username) {
+              if (username != '') {
                 // Update the content of the username placeholder
                 document.getElementById('user-name').textContent = username;
+                document.getElementById('sign-up').textContent = '';
+                document.getElementById('log-in').textContent = 'Log-Out';
               }
             })
             .catch(error => {

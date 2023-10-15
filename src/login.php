@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user) {
             if (password_verify($_POST['password'], $user['password_hash'])) {
-                echo '<em>Successful Login</em>';
+                echo '<p style="text-align: center">Successful Login</p>';
                 $_SESSION['username'] = $user['username']; // Store the username in a session variable
                 echo '<meta http-equiv="refresh" content="2;url=index.php">';
             } else {

@@ -56,6 +56,25 @@ class Starships
         $this->starship_class = $starship_class;
     }
 
+
+    public static function starshipCount()
+    {
+        try {
+            $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
+            $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            //get count of vehicles:
+            $starships = $open_review_s_db->query("SELECT count(*) as num FROM starship");
+            $result = $starships->fetch(PDO::FETCH_ASSOC);
+            $open_review_s_db = null;
+            return $result['num'];
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+
     public static function searchStarship($query)
     {
         try {

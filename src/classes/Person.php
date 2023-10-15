@@ -35,6 +35,25 @@ class Person
         $this->image = $image;
     }
 
+
+    public static function peopleCount()
+    {
+        try {
+            $open_review_s_db = new PDO("sqlite:" . '../src/resources/star_wars.db');
+            $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            //get count of people:
+            $cast = $open_review_s_db->query("SELECT count(*) as num FROM people");
+            $result = $cast->fetch(PDO::FETCH_ASSOC);
+            $open_review_s_db = null;
+            return $result['num'];
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+
     public static function searchPeople($query)
     {
         try {
