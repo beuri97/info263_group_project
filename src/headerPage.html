@@ -52,7 +52,7 @@
 
 <!-- Navigation -->
 <div class = "row">
-  <div class="col-5">
+  <div class="col-7">
     <div style="text-align: left;">
       <nav>
         <ul>
@@ -60,13 +60,16 @@
           <li><a href="films.php">Films</a></li>
           <li><a href="planets.php">Planets</a></li>
           <li><a href="people.php">People</a></li>
-          <li><a href="add_data.php">Form</a></li>
+          <li><a href="vehicles.php">Vehicles</a></li>
+          <li><a href="starships.php">Starships</a></li>
+          <li><a href="charts.php">Charts</a></li>
+          <li><a href="form.php">Form</a></li>
         </ul>
       </nav>
     </div>
   </div>
 
-  <div class="col-3">
+  <div class="col-1">
 
   </div>
 
@@ -75,9 +78,10 @@
       <nav>
         <ul>
           <div style="text-align: center;">
-            <li><a href="login.php">Login</a></li>
+            <li><b id="user-name"></b></li>
+            <li><a id="sign-up" href="signup.php">Sign Up</a></li>
+            <li><a id="log-in" href="login.php">Login</a></li>
             <li><a href="search.php">Search</a></li>
-            <img src="img/magnifying.png" width="20"/>
           </div>
 
         </ul>
@@ -85,7 +89,22 @@
     </div>
   </div>
 
-  <!-- Search -->
+  <script>
+    fetch('getUsername.php')
+            .then(response => response.json())
+            .then(data => {
+              const username = data.username;
+              if (username != '') {
+                // Update the content of the username placeholder
+                document.getElementById('user-name').textContent = username;
+                document.getElementById('sign-up').textContent = '';
+                document.getElementById('log-in').textContent = 'Log-Out';
+              }
+            })
+            .catch(error => {
+              console.error('Error fetching user name:', error);
+            });
+  </script>
 
 </div>
 </body>

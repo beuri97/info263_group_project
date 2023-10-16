@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Star Wars - People</title>
+    <title>Star Wars - Vehicles</title>
     <?php
     include 'headerPage.html';
     ?>
@@ -16,14 +16,14 @@
 
     <!-- Scripts -->
     <script type = "text/javascript" src="js/filmsScript.js"></script>
+
 </head>
 
 <body>
 
-<h2>People</h2>
+<h2>Vehicles</h2>
 
 <?php
-
 try {
     $open_review_s_db = new PDO("sqlite:resources/star_wars.db");
     $open_review_s_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -31,23 +31,23 @@ try {
     die($e->getMessage());
 }
 
-// Wrap the cast images and names in a container div
+// Wrap the starship images and names in a container div
 echo '<div class="cast-container">';
-$cast = $open_review_s_db->query("SELECT peopleID, people_name, image_url FROM people");
-while($row = $cast->fetch(PDO::FETCH_ASSOC)) {
-    ?> <a href='peopleInfo.php?id=<?php echo $row['peopleID']; ?>' class="cast-item"> <?php
+$vehicles = $open_review_s_db->query("SELECT vehicleID, vehicle_name, image_url FROM vehicle");
+while($row = $vehicles->fetch(PDO::FETCH_ASSOC)) {
+    ?> <a href='vehicleInfo.php?id=<?php echo $row['vehicleID']; ?>' class="cast-item"> <?php
     $img = explode('/revision',$row['image_url']);
     if ($img[0] != NULL){
         echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
     } else {
         echo "<img class='cast-image' height='100' src='img/noimage.png' alt='film_image'/><br />";
     }
-    echo "<p>" . $row['people_name'] . "</p>";
+    echo "<p>" . $row['vehicle_name'] . "</p>";
     echo '</a>';
 }
-echo '</div>'; // Close the cast-container div
-    $open_review_s_db = null;
-?>
+echo '</div>'; // Close the starship-container div
 
-</body>
-</html>
+$open_review_s_db = NULL;
+
+
+

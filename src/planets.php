@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Star Wars - Films</title>
+    <title>Star Wars - Planets</title>
     <?php
     include 'headerPage.html';
     ?>
@@ -39,14 +39,17 @@ $planets = $open_review_s_db->query("SELECT planetID, planet_name, image_url FRO
 while($row = $planets->fetch(PDO::FETCH_ASSOC)) {
     ?> <a href='planetInfo.php?id=<?php echo $row['planetID']; ?>' class="cast-item"> <?php
     $img = explode('/revision',$row['image_url']);
-    echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='planet_image'/><br />";
+    if ($img[0] != NULL){
+        echo "<img class='cast-image' height='100' src='" . $img[0] . "' alt='film_image'/><br />";
+    } else {
+        echo "<img class='cast-image' height='100' src='img/noimage.png' alt='film_image'/><br />";
+    }
     echo "<p>" . $row['planet_name'] . "</p>";
     echo '</a>';
 }
 echo '</div>'; // Close the planet-container div
 
-
-
+$open_review_s_db = NULL;
 ?>
 
 </body>
