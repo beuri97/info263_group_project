@@ -8,7 +8,7 @@
 
     include 'headerPage.html';
     require_once 'resources/database.php';
-
+    session_start();
     ?>
     <!-- Page Style -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -186,33 +186,44 @@
     }
 
     function process() {
+        let username = null;
+        fetch('getUsername.php')
+            .then(response => response.json())
+            .then(data => {
+                username = data.username;
+                console.log(username);
+                if (username === null || username === "") {
+                    document.getElementById('confirm').innerHTML = "PLEASE LOG IN FRIST";
+                } else {
+                    var title = document.getElementById('input-title').value;
+                    var episode = document.getElementById('input-episode').value;
+                    var director = document.getElementById('input-director').value;
+                    var release = document.getElementById('input-date').value;
+                    var crawl = document.getElementById('input-crawl').value;
+                    var url = (document.getElementById('input-url').value === "") ? null : document.getElementById('input-url').value;
 
-        var title = document.getElementById('input-title').value;
-        var episode = document.getElementById('input-episode').value;
-        var director = document.getElementById('input-director').value;
-        var release = document.getElementById('input-date').value;
-        var crawl = document.getElementById('input-crawl').value;
-        var url = (document.getElementById('input-url').value === "") ? null : document.getElementById('input-url').value;
+                    var data = [title, episode, director, release, crawl, url, people, planet, vehicle, starShip];
 
-        var data = [title, episode, director, release, crawl, url, people, planet, vehicle, starShip];
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "form.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "form.php", true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // Request Done!
+                            console.log(xhr.responseText);
+                        } else {
+                            console.error("FAILED:", xhr.status);
+                            console.error(xhr.statusText);
+                        }
+                    };
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Request Done!
-                console.log(xhr.responseText);
-            }else {
-                console.error("FAILED:", xhr.status);
-                console.error(xhr.statusText);
-            }
-        };
+                    xhr.send(JSON.stringify(data));
 
-        xhr.send(JSON.stringify(data));
+                    document.getElementById('confirm').innerHTML = "FILM SAVED SUCCESS";
+                }
+            })
 
-        document.getElementById('confirm').innerHTML = "FILM SAVED SUCCESS";
 
 
 
