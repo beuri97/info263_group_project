@@ -76,52 +76,55 @@
 <h2>Add Film</h2>
 <br>
 <br>
-<form action="add_data.php" method="post">
-    <h2 class="subtitle">FILM INFO</h2>
-    <div id = "Add_data_film">
-        <table class="center">
-            <tr>
-                <td><label for="input-title">Title</label></td>
-                <td id="td-title"><input id = "input-title" type="text" name = "title" required></td>
-                <td><label for="input-episode">Episode</label></td>
-                <td colspan="3" id="td-episode"><input type="text" id="input-episode" name="episode" required></td>
-                <td><label for="input-director">Director</label></td>
-                <td id="td-director"><input type="text" id="input-director" name="director" required></td>
-                <td><label for="input-date">Date</label></td>
-                <td id="td-date"><input type="date" id="input-date" name="release_date" required></td>
-            </tr>
-            <tr>
-                <td><label for="input-crawl">Opening Crawl</label></td>
-                <td colspan="9" id="td-crawl"><textarea id="input-crawl" style="resize: none" rows="10" name="crawl" required>Enter text here.</textarea> </td>
-            </tr>
-            <tr>
-                <td><label for="input-url">image URL</label></td>
-                <td colspan="9"><input type="text" id="input-url" name="url"></td>
-            </tr>
-        </table>
-    </div>
-    <br>
-    <h2 class="subtitle">PEOPLE</h2>
-    <div id="add" class="cast-container">
-        <?php getData("SELECT peopleID, people_name, image_url FROM PEOPLE", "people");?>
-    </div>
-    <br />
-    <h2 class="subtitle">PLANET</h2>
-    <div id="add" class="cast-container">
-        <?php getData("SELECT planetID, planet_name, image_url FROM PLANET", "planet");?>
-    </div>
-    <br />
-    <h2 class="subtitle">VEHICLE</h2>
-    <div id="add" class="cast-container">
-        <?php getData("SELECT vehicleID, vehicle_name, image_url FROM VEHICLE", "vehicle");?>
-    </div>
-    <h2 class="subtitle">STAR SHIP</h2>
-    <div id="add" class="cast-container">
-        <?php getData("SELECT starshipID, starship_name, image_url FROM STARSHIP", "starship");?>
-    </div>
-    <input type="submit" id="submit" name="add" value="Add" style="margin-left: 15%" onclick="process()">
-</form>
+
+<h2 class="subtitle">FILM INFO</h2>
+<div id = "Add_data_film">
+    <table class="center">
+        <tr>
+            <td><label for="input-title">Title</label></td>
+            <td id="td-title"><input id = "input-title" type="text" name = "title" required></td>
+            <td><label for="input-episode">Episode</label></td>
+            <td colspan="3" id="td-episode"><input type="text" id="input-episode" name="episode" required></td>
+            <td><label for="input-director">Director</label></td>
+            <td id="td-director"><input type="text" id="input-director" name="director" required></td>
+            <td><label for="input-date">Date</label></td>
+            <td id="td-date"><input type="date" id="input-date" name="release_date" required></td>
+        </tr>
+        <tr>
+            <td><label for="input-crawl">Opening Crawl</label></td>
+            <td colspan="9" id="td-crawl"><textarea id="input-crawl" style="resize: none" rows="10" name="crawl" required>Enter text here.</textarea> </td>
+        </tr>
+        <tr>
+            <td><label for="input-url">image URL</label></td>
+            <td colspan="9"><input type="text" id="input-url" name="url"></td>
+        </tr>
+    </table>
+</div>
 <br>
+<h2 class="subtitle">PEOPLE</h2>
+<div id="add" class="cast-container">
+    <?php getData("SELECT peopleID, people_name, image_url FROM PEOPLE", "people");?>
+</div>
+<br />
+<h2 class="subtitle">PLANET</h2>
+<div id="add" class="cast-container">
+    <?php getData("SELECT planetID, planet_name, image_url FROM PLANET", "planet");?>
+</div>
+<br />
+<h2 class="subtitle">VEHICLE</h2>
+<div id="add" class="cast-container">
+    <?php getData("SELECT vehicleID, vehicle_name, image_url FROM VEHICLE", "vehicle");?>
+</div>
+<h2 class="subtitle">STAR SHIP</h2>
+<div id="add" class="cast-container">
+    <?php getData("SELECT starshipID, starship_name, image_url FROM STARSHIP", "starship");?>
+</div>
+<br>
+<br>
+<h2 id="confirm"></h2>
+<br>
+<input type="submit" id="submit" name="add" value="FILM SAVE" style="margin-left: 47%" onclick="process()">
+
 
 <script>
     var people = [];
@@ -183,16 +186,33 @@
     }
 
     function process() {
-        var data = [people, planet, vehicle, starShip];
 
-        var toSend = JSON.stringify(data);
+        var title = document.getElementById('input-title').value;
+        var episode = document.getElementById('input-episode').value;
+        var director = document.getElementById('input-director').value;
+        var release = document.getElementById('input-date').value;
+        var crawl = document.getElementById('input-crawl').value;
+        var url = (document.getElementById('input-url').value === "") ? null : document.getElementById('input-url').value;
 
+        var data = [title, episode, director, release, crawl, url, people, planet, vehicle, starShip];
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "add_data.php");
+        xhr.open("POST", "form.php", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-        xhr.send(toSend);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Request Done!
+                console.log(xhr.responseText);
+            }else {
+                console.error("FAILED:", xhr.status);
+                console.error(xhr.statusText);
+            }
+        };
+
+        xhr.send(JSON.stringify(data));
+
+        document.getElementById('confirm').innerHTML = "FILM SAVED SUCCESS";
 
 
 
@@ -201,21 +221,44 @@
 
 
 <?php
-// Initialise films attributes' values
-if(isset($_POST['add'], $_POST['title'], $_POST['episode'], $_POST['director'], $_POST['release_date'], $_POST['crawl'], $_POST['add']))
-{
-    $title = $_POST['title'];
-    $episode = (int)$_POST['episode'];
-    $director = $_POST['director'];
-    $release = date("Y-m-d", strtotime($_POST['release_date']));
-    $crawl = $_POST['crawl'];
+//$people = null;
+//$planet = null;
+//$vehicle = null;
+//$starShip = null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = file_get_contents("php://input");
+    $dataArray = json_decode($data);
+    echo var_dump($dataArray) . $dataArray . "<br />";
+
+    //update FILM data
+    $id = getNewFilmID();
+    $title = $dataArray[0];
+    $episode = (int)$dataArray[1];
+    $director = $dataArray[2];
+    $release = $dataArray[3];
+    $crawl = $dataArray[4];
+    $url = $dataArray[5];
+    addFilm($id, $title, $episode, $crawl, $director, $release, $url);
+
+    // People updates from the new film
+    $people = $dataArray[6];
+    peopleFilmUpdate($id, $people);
+
+    // Planet updates from the new film
+    $planet = $dataArray[7];
+    updateFilmPlanet($id, $planet);
+
+    // Vehicle updates from the new film
+    $vehicle = $dataArray[8];
+    updateFilmVehicle($id, $vehicle);
+
+    // Starship updates from the new film
+    $starShip = $dataArray[9];
+    updateFilmStarShip($id, $starShip);
+
+
 }
 
-if(isset($_POST['add'], $title, $episode, $director, $release, $crawl) and $title != '' and $episode != '' and $director != ''
-    and $release != '' and $crawl != '') {
-    $url = ($_POST['url'] == '') ? NULL : $_POST['url'];
-    // addFilm($title, $episode, $crawl, $director, $release, $url);
-}
 
 function getData($query, $name) {
     $db = openConnection();
@@ -229,6 +272,7 @@ function getData($query, $name) {
         echo "</div>";
     }
     closeConnection($db);
+
 }
 ?>
 </body>
