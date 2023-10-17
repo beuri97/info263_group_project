@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars - Starships</title>
+    <meta name="description" content="Embark on a starship journey in the Star Wars universe. Discover technical details,
+    history, and specifications of iconic spacecraft. Dive into the galaxy of Star Wars starships here.">
+
     <?php
     include 'headerPage.html';
     ?>

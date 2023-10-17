@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars - Search</title>
-
+    <meta name="description" content="Explore the entire Star Wars universe with our site search.
+    Find characters, ships, planets, and more. Search the galaxy of Star Wars with knowledge at your fingertips.">
     <?php
     include 'headerPage.html';
     ?>

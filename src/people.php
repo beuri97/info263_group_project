@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars - People</title>
+    <meta name="description" content="Meet the legends of the Star Wars universe. Learn about the backgrounds, traits, and other information of iconic characters.
+    Dive into the captivating details of Star Wars characters here.">
     <?php
     include 'headerPage.html';
     ?>

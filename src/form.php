@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars</title>
+    <meta name="description" content="Contribute to the Star Wars database!
+    Share your knowledge and add films, characters, ships, planets, and more to the galaxy. Be a part of the Star Wars data community.">
 
     <?php
-
+    session_start();
     include 'headerPage.html';
     require_once 'resources/database.php';
-    session_start();
     ?>
     <!-- Page Style -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">

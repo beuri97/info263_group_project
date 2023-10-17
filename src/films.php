@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars - Films</title>
+    <meta name="description" content="Explore the epic Star Wars Saga: discover characters, planets,
+    and more from each film in the legendary Star Wars universe.">
 
     <?php
     include 'headerPage.html';
