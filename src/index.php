@@ -2,7 +2,9 @@
 <html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 <head>
     <meta charset="UTF-8">
-    <title>Star Wars - INFO263</title>
+    <title>Star Wars Data - INFO263</title>
+    <meta name="description" content="Unleash the Force of Star Wars data! Explore characters, ships, planets,
+    and more in the ultimate Star Wars database. May the data be with you.">
     <script src="js/script.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'/>
     <!-- CSS libraries -->
