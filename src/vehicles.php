@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars - Vehicles</title>
+    <meta name="description" content="Navigate the galaxy with Star Wars vehicles.
+    Explore details, specifications, and history of vehicles from landspeeders to walkers.
+    Uncover the secrets of Star Wars vehicles here.">
     <?php
     include 'headerPage.html';
     ?>

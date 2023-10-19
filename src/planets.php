@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars - Planets</title>
+    <meta name="description" content="Journey to distant worlds in the Star Wars galaxy.
+    Discover fascinating details, climates, and other information of iconic planets. Explore the wonders of Star Wars planets here.">
     <?php
     include 'headerPage.html';
     ?>
